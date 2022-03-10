@@ -1,4 +1,6 @@
 import 'package:etutor/ui/screens/home_screen.dart';
+import 'package:etutor/ui/screens/login_screen.dart';
+import 'package:etutor/ui/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,10 +14,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'E Tutor',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomeScreen(),
+          primarySwatch: Colors.purple,
+          appBarTheme: AppBarTheme(
+            centerTitle: true,
+          )),
+      home: LoginScreen(),
     );
   }
 }
