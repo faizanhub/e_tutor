@@ -25,7 +25,7 @@ class CustomButton extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: () {},
+      onPressed: onPressed,
       child: Text(title, style: buttonTextStyle),
     );
   }

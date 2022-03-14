@@ -1,13 +1,26 @@
 import 'package:etutor/constants/app_strings.dart';
 import 'package:etutor/constants/text_styles.dart';
 import 'package:etutor/ui/custom_widgets/custom_textfield.dart';
+import 'package:etutor/ui/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  static const String routeName = '/login';
+
+  String userType;
+
+  LoginScreen({
+    required this.userType,
+  });
 
   @override
   Widget build(BuildContext context) {
+    print(userType);
+
+    goToSignUp() {
+      Navigator.pushNamed(context, SignUpScreen.routeName, arguments: userType);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppStrings.loginAccount),
@@ -56,9 +69,12 @@ class LoginScreen extends StatelessWidget {
                   AppStrings.dontHaveAccount,
                   style: alreadyhaveAccountStyle,
                 ),
-                Text(
-                  AppStrings.createNow,
-                  style: loginNowTextStyle,
+                GestureDetector(
+                  onTap: goToSignUp,
+                  child: Text(
+                    AppStrings.createNow,
+                    style: loginNowTextStyle,
+                  ),
                 ),
               ],
             )

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 const TextStyle userTypeTextStyle = TextStyle(
-  fontSize: 20,
-  fontWeight: FontWeight.bold,
+  fontSize: 22,
+  fontWeight: FontWeight.w600,
 );
 
 const TextStyle buttonTextStyle = TextStyle(

@@ -1,15 +1,25 @@
 import 'package:etutor/constants/app_strings.dart';
+import 'package:etutor/constants/configs.dart';
 import 'package:etutor/constants/text_styles.dart';
 import 'package:etutor/ui/custom_widgets/custom_button.dart';
+import 'package:etutor/ui/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = '/';
 
-  const HomeScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    void handleTeacherButton() {
+      Navigator.pushNamed(context, LoginScreen.routeName,
+          arguments: AppConfigs.teacherType);
+    }
+
+    void handleStudentButton() {
+      Navigator.pushNamed(context, LoginScreen.routeName,
+          arguments: AppConfigs.studentType);
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -31,11 +41,11 @@ class HomeScreen extends StatelessWidget {
                   style: userTypeTextStyle,
                 ),
 
-                SizedBox(height: 40),
+                SizedBox(height: 45),
 
                 ///Teacher Button
                 CustomButton(
-                  onPressed: () {},
+                  onPressed: handleTeacherButton,
                   title: AppStrings.teacher,
                 ),
 
@@ -43,7 +53,7 @@ class HomeScreen extends StatelessWidget {
 
                 ///Student Button
                 CustomButton(
-                  onPressed: () {},
+                  onPressed: handleStudentButton,
                   title: AppStrings.student,
                 ),
               ],
