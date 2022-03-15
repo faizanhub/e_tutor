@@ -13,9 +13,23 @@ abstract class AppStrings {
   static const String confirmPassword = 'Confirm Password';
   static const String alreadyHaveAccount = 'Already have an account? ';
   static const String loginNow = 'Login Now';
+  static const String accountCreatedSuccessfully =
+      'Account Created Successfully';
 
   //Login Screen
   static const String loginAccount = 'Login Account';
   static const String dontHaveAccount = "Don't have and account? ";
   static const String createNow = 'Create Now';
+  static const String enterValidEmail = 'Please enter a valid email';
+  static const String enterValidPassword =
+      'Password should be atleast 5 characters long';
+
+  static const String loginSuccessful = 'Login Successful';
+  static const String failed = 'Failed';
+
+  //Auth Service
+  static const String userNotFound = 'user-not-found';
+  static const String wrongPassword = 'wrong-password';
+  static const String weakPassword = 'weak-password';
+  static const String emailAlreadyInUse = 'email-already-in-use';
 }

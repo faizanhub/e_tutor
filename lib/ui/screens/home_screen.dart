@@ -1,4 +1,4 @@
-import 'package:etutor/constants/app_strings.dart';
+import 'package:etutor/constants/strings/app_strings.dart';
 import 'package:etutor/constants/configs.dart';
 import 'package:etutor/constants/text_styles.dart';
 import 'package:etutor/ui/custom_widgets/custom_button.dart';

@@ -1,4 +1,4 @@
-import 'package:etutor/constants/app_strings.dart';
+import 'package:etutor/constants/strings/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -6,12 +6,14 @@ class CustomTextField extends StatelessWidget {
   final String? hintText;
   final IconData? prefixIcon;
   final bool obsecureText;
+  final String? Function(String?)? validator;
 
   CustomTextField({
     this.controller,
     this.hintText,
     this.prefixIcon,
     this.obsecureText = false,
+    this.validator,
   });
 
   @override
@@ -21,6 +23,7 @@ class CustomTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         obscureText: obsecureText,
+        validator: validator,
         decoration: InputDecoration(
           prefixIcon: Icon(prefixIcon),
           hintText: hintText,
