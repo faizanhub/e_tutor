@@ -2,7 +2,9 @@ import 'package:etutor/constants/strings/app_strings.dart';
 import 'package:etutor/constants/text_styles.dart';
 import 'package:etutor/core/services/auth_service.dart';
 import 'package:etutor/core/utils/alert_dialog.dart';
+import 'package:etutor/core/utils/validators.dart';
 import 'package:etutor/ui/custom_widgets/custom_textfield.dart';
+import 'package:etutor/ui/screens/dashboard_screen.dart';
 import 'package:etutor/ui/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -27,20 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final authService = AuthService();
   bool isLoading = false;
 
-  String? validateEmailField(value) {
-    if (value == null || value.isEmpty || !value.contains('.com')) {
-      return AppStrings.enterValidEmail;
-    }
-    return null;
-  }
-
-  String? validatePasswordField(String? password) {
-    if (password == null || password.isEmpty || password.length < 6) {
-      return AppStrings.enterValidPassword;
-    }
-    return null;
-  }
-
   toggleIsLoading(bool value) {
     setState(() {
       isLoading = value;
@@ -54,6 +42,19 @@ class _LoginScreenState extends State<LoginScreen> {
   //   passwordController.dispose();
   //   super.dispose();
   // }
+
+  void goToSignUp() {
+    Navigator.pushNamed(context, SignUpScreen.routeName,
+            arguments: widget.userType)
+        .then((value) {
+      emailController.clear();
+      passwordController.clear();
+    });
+  }
+
+  void goToDashboard() {
+    Navigator.pushReplacementNamed(context, DashBoardScreen.routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,20 +75,12 @@ class _LoginScreenState extends State<LoginScreen> {
               content: Text(AppStrings.loginSuccessful),
             ),
           );
-          print('Login Ok');
+
+          goToDashboard();
         } else {
           showAlertDialog(context, AppStrings.failed, response.message);
         }
       }
-    }
-
-    void goToSignUp() {
-      Navigator.pushNamed(context, SignUpScreen.routeName,
-              arguments: widget.userType)
-          .then((value) {
-        emailController.clear();
-        passwordController.clear();
-      });
     }
 
     return Scaffold(
@@ -128,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   SizedBox(height: 20),
 
-                  ///Button
+                  ///Login Button
                   ElevatedButton(
                     onPressed: handleLoginButton,
                     style: ButtonStyle(

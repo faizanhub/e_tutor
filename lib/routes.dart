@@ -1,3 +1,4 @@
+import 'package:etutor/ui/screens/dashboard_screen.dart';
 import 'package:etutor/ui/screens/home_screen.dart';
 import 'package:etutor/ui/screens/login_screen.dart';
 import 'package:etutor/ui/screens/signup_screen.dart';
@@ -14,6 +15,8 @@ class CustomRoutes {
       case SignUpScreen.routeName:
         final args = settings.arguments as String;
         return MaterialPageRoute(builder: (_) => SignUpScreen(userType: args));
+      case DashBoardScreen.routeName:
+        return MaterialPageRoute(builder: (_) => DashBoardScreen());
 
       default:
         return MaterialPageRoute(builder: (_) => HomeScreen());

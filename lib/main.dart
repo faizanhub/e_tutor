@@ -20,10 +20,11 @@ class MyApp extends StatelessWidget {
       title: 'E Tutor',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primarySwatch: Colors.purple,
-          appBarTheme: AppBarTheme(
-            centerTitle: true,
-          )),
+        primarySwatch: Colors.purple,
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+        ),
+      ),
       initialRoute: HomeScreen.routeName,
       onGenerateRoute: CustomRoutes.onGenerateRoute,
     );

@@ -1,7 +1,9 @@
 import 'package:etutor/constants/strings/app_strings.dart';
 import 'package:etutor/constants/text_styles.dart';
+import 'package:etutor/core/models/person.dart';
 import 'package:etutor/core/services/auth_service.dart';
 import 'package:etutor/core/utils/alert_dialog.dart';
+import 'package:etutor/core/utils/validators.dart';
 import 'package:etutor/ui/custom_widgets/custom_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +22,16 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  TextEditingController fullNameC = TextEditingController();
   TextEditingController emailC = TextEditingController();
-
+  TextEditingController cityC = TextEditingController();
+  TextEditingController addressC = TextEditingController();
   TextEditingController passwordC = TextEditingController();
+  TextEditingController confirmPasswordC = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  Person person = Person();
 
   final authService = AuthService();
 
@@ -43,25 +52,38 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
 
     void handleCreateAccountBtn() async {
-      toggleIsLoading(true);
-      AuthResponse response =
-          await authService.createAccount(emailC.text, passwordC.text);
+      if (_formKey.currentState!.validate()) {
+        if (passwordC.text == confirmPasswordC.text) {
+          person.fullName = fullNameC.text;
+          person.email = emailC.text;
+          person.password = passwordC.text;
+          person.city = cityC.text;
+          person.address = addressC.text;
+          person.userType = widget.userType;
 
-      toggleIsLoading(false);
+          toggleIsLoading(true);
+          AuthResponse response = await authService.createAccount(person);
 
-      if (response.status) {
-        ///Account Creation Successful
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(AppStrings.accountCreatedSuccessfully),
-          ),
-        );
-        Navigator.pop(context);
+          toggleIsLoading(false);
 
-        print('Account Creation Ok');
-      } else {
-        ///Show Alert
-        showAlertDialog(context, AppStrings.failed, response.message);
+          if (response.status) {
+            ///Account Creation Successful
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(AppStrings.accountCreatedSuccessfully),
+              ),
+            );
+            Navigator.pop(context);
+
+            print('Account Creation Ok');
+          } else {
+            ///Show Alert
+            showAlertDialog(context, AppStrings.failed, response.message);
+          }
+        } else {
+          showAlertDialog(
+              context, AppStrings.failed, AppStrings.passwordFieldsNotSame);
+        }
       }
     }
 
@@ -81,33 +103,52 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ///TextFields
-                      CustomTextField(
-                        hintText: AppStrings.name,
-                        prefixIcon: Icons.person_outlined,
-                      ),
-
-                      CustomTextField(
-                        hintText: AppStrings.city,
-                        prefixIcon: Icons.place_outlined,
-                      ),
-
-                      CustomTextField(
-                        hintText: AppStrings.email,
-                        prefixIcon: Icons.email,
-                        controller: emailC,
-                      ),
-
-                      CustomTextField(
-                        hintText: AppStrings.password,
-                        prefixIcon: Icons.lock_outlined,
-                        obsecureText: true,
-                        controller: passwordC,
-                      ),
-
-                      CustomTextField(
-                        hintText: AppStrings.confirmPassword,
-                        prefixIcon: Icons.lock_outlined,
-                        obsecureText: true,
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            CustomTextField(
+                              hintText: AppStrings.fullName,
+                              prefixIcon: Icons.person_outlined,
+                              controller: fullNameC,
+                              validator: validateFullNameField,
+                            ),
+                            CustomTextField(
+                              hintText: AppStrings.email,
+                              prefixIcon: Icons.email,
+                              controller: emailC,
+                              validator: validateEmailField,
+                            ),
+                            CustomTextField(
+                              hintText: AppStrings.city,
+                              prefixIcon: Icons.place_outlined,
+                              controller: cityC,
+                              validator: validateCityField,
+                            ),
+                            CustomTextField(
+                              hintText: AppStrings.address,
+                              prefixIcon: Icons.home_outlined,
+                              controller: addressC,
+                              validator: validateCityField,
+                            ),
+                            CustomTextField(
+                              hintText: AppStrings.password,
+                              prefixIcon: Icons.lock_outlined,
+                              obsecureText: true,
+                              controller: passwordC,
+                              validator: validatePasswordField,
+                              keyboardType: TextInputType.visiblePassword,
+                            ),
+                            CustomTextField(
+                              hintText: AppStrings.confirmPassword,
+                              prefixIcon: Icons.lock_outlined,
+                              obsecureText: true,
+                              controller: confirmPasswordC,
+                              validator: validatePasswordField,
+                              keyboardType: TextInputType.visiblePassword,
+                            ),
+                          ],
+                        ),
                       ),
 
                       SizedBox(height: 20),

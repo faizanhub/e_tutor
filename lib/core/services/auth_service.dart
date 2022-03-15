@@ -1,9 +1,13 @@
 import 'package:etutor/constants/strings/app_strings.dart';
 import 'package:etutor/constants/strings/error_strings.dart';
+import 'package:etutor/core/models/person.dart';
+import 'package:etutor/core/services/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
   final _firebaseAuth = FirebaseAuth.instance;
+
+  final _databaseService = DatabaseService();
 
   Future<AuthResponse> login(String email, String password) async {
     try {
@@ -28,12 +32,17 @@ class AuthService {
         status: false, message: ErrorStrings.somethingWentWrong);
   }
 
-  Future<AuthResponse> createAccount(String email, String password) async {
+  Future<AuthResponse> createAccount(Person person) async {
     try {
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
+          email: person.email, password: person.password);
 
       if (userCredential.user != null) {
+        //Account Created Successfully
+
+        await _databaseService.saveAccountData(
+            person, userCredential.user!.uid);
+
         return AuthResponse(status: true, message: '');
       }
     } on FirebaseAuthException catch (e) {
