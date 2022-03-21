@@ -1,11 +1,16 @@
+import 'package:etutor/constants/configs.dart';
 import 'package:etutor/constants/strings/app_strings.dart';
 import 'package:etutor/constants/text_styles.dart';
 import 'package:etutor/core/services/auth_service.dart';
+import 'package:etutor/core/services/database_service.dart';
 import 'package:etutor/core/utils/alert_dialog.dart';
+import 'package:etutor/core/utils/snack_bar.dart';
 import 'package:etutor/core/utils/validators.dart';
 import 'package:etutor/ui/custom_widgets/custom_textfield.dart';
-import 'package:etutor/ui/screens/dashboard_screen.dart';
+import 'package:etutor/ui/screens/home_screen.dart';
+import 'package:etutor/ui/screens/student_dashboard_screen.dart';
 import 'package:etutor/ui/screens/signup_screen.dart';
+import 'package:etutor/ui/screens/teacher_dashboard_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -26,7 +31,8 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  final authService = AuthService();
+  final _authService = AuthService();
+  final _dbService = DatabaseService();
   bool isLoading = false;
 
   toggleIsLoading(bool value) {
@@ -52,31 +58,43 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void goToDashboard() {
-    Navigator.pushReplacementNamed(context, DashBoardScreen.routeName);
+  void goToStudentDashboard() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (_) => StudentDashboardScreen()),
+      (Route<dynamic> route) => false,
+    );
+  }
+
+  void goToTeacherDashboard() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (_) => TeacherDashboardScreen()),
+      (Route<dynamic> route) => false,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    print(widget.userType);
+    // print(widget.userType);
 
     void handleLoginButton() async {
       if (_formKey.currentState!.validate()) {
         toggleIsLoading(true);
-        AuthResponse? response = await authService.login(
+        AuthResponse? response = await _authService.login(
             emailController.text, passwordController.text);
 
         toggleIsLoading(false);
 
         if (response.status) {
           ///Login Successful
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(AppStrings.loginSuccessful),
-            ),
-          );
+          showSnackBar(context, AppStrings.loginSuccessful);
 
-          goToDashboard();
+          if (response.message == AppConfigs.studentType) {
+            goToStudentDashboard();
+          } else if (response.message == AppConfigs.teacherType) {
+            goToTeacherDashboard();
+          }
         } else {
           showAlertDialog(context, AppStrings.failed, response.message);
         }

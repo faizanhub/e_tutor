@@ -1,5 +1,6 @@
 import 'package:etutor/routes.dart';
 import 'package:etutor/ui/screens/home_screen.dart';
+import 'package:etutor/ui/screens/landing_screen.dart';
 import 'package:etutor/ui/screens/login_screen.dart';
 import 'package:etutor/ui/screens/signup_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
           centerTitle: true,
         ),
       ),
-      initialRoute: HomeScreen.routeName,
+      // initialRoute: HomeScreen.routeName,
+      initialRoute: LandingScreen.routeName,
       onGenerateRoute: CustomRoutes.onGenerateRoute,
     );
   }

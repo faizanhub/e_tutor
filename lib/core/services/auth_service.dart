@@ -6,8 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
   final _firebaseAuth = FirebaseAuth.instance;
-
-  final _databaseService = DatabaseService();
+  final _dbService = DatabaseService();
 
   Future<AuthResponse> login(String email, String password) async {
     try {
@@ -15,7 +14,9 @@ class AuthService {
           email: email, password: password);
 
       if (userCredential.user != null) {
-        return AuthResponse(status: true, message: '');
+        String userType = await _dbService.getUserType(userCredential.user!);
+
+        return AuthResponse(status: true, message: userType);
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == AppStrings.userNotFound) {
@@ -40,8 +41,7 @@ class AuthService {
       if (userCredential.user != null) {
         //Account Created Successfully
 
-        await _databaseService.saveAccountData(
-            person, userCredential.user!.uid);
+        await _dbService.saveAccountData(person, userCredential.user!.uid);
 
         return AuthResponse(status: true, message: '');
       }
@@ -60,6 +60,14 @@ class AuthService {
 
     return AuthResponse(
         status: false, message: ErrorStrings.somethingWentWrong);
+  }
+
+  User? get currentUser {
+    return _firebaseAuth.currentUser;
+  }
+
+  Future<void> signOut() async {
+    await _firebaseAuth.signOut();
   }
 }
 

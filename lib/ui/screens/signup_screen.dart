@@ -3,6 +3,7 @@ import 'package:etutor/constants/text_styles.dart';
 import 'package:etutor/core/models/person.dart';
 import 'package:etutor/core/services/auth_service.dart';
 import 'package:etutor/core/utils/alert_dialog.dart';
+import 'package:etutor/core/utils/snack_bar.dart';
 import 'package:etutor/core/utils/validators.dart';
 import 'package:etutor/ui/custom_widgets/custom_textfield.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,7 +46,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('Sign Up Screen ' + widget.userType);
+    // print('Sign Up Screen ' + widget.userType);
 
     void goToLoginScreen() {
       Navigator.pop(context);
@@ -68,14 +69,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
           if (response.status) {
             ///Account Creation Successful
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(AppStrings.accountCreatedSuccessfully),
-              ),
-            );
-            Navigator.pop(context);
+            showSnackBar(context, AppStrings.accountCreatedSuccessfully);
 
-            print('Account Creation Ok');
+            Navigator.pop(context);
           } else {
             ///Show Alert
             showAlertDialog(context, AppStrings.failed, response.message);

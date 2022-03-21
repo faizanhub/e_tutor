@@ -1,7 +1,7 @@
 abstract class AppStrings {
   static const String user_type = 'Please Select User Type';
   static const String homeScreen_image = 'assets/images/user_type.png';
-  static const String teacher = 'Teachers';
+  static const String teacher = 'Teacher';
   static const String student = 'Student';
 
   //SignUp Screen
@@ -33,7 +33,8 @@ abstract class AppStrings {
   static const String failed = 'Failed';
 
   //Dashboard Screen
-  static const String dashBoard = 'Dashboard';
+  static const String studentDashBoard = 'Student Dashboard';
+  static const String teacherDashBoard = 'Teacher Dashboard';
 
   //Auth Service
   static const String userNotFound = 'user-not-found';

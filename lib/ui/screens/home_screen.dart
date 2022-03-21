@@ -6,17 +6,17 @@ import 'package:etutor/ui/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const String routeName = '/';
+  static const String routeName = '/home';
 
   @override
   Widget build(BuildContext context) {
     void handleTeacherButton() {
-      Navigator.pushNamed(context, LoginScreen.routeName,
+      Navigator.pushReplacementNamed(context, LoginScreen.routeName,
           arguments: AppConfigs.teacherType);
     }
 
     void handleStudentButton() {
-      Navigator.pushNamed(context, LoginScreen.routeName,
+      Navigator.pushReplacementNamed(context, LoginScreen.routeName,
           arguments: AppConfigs.studentType);
     }
 

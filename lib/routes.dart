@@ -1,7 +1,9 @@
-import 'package:etutor/ui/screens/dashboard_screen.dart';
+import 'package:etutor/ui/screens/landing_screen.dart';
+import 'package:etutor/ui/screens/student_dashboard_screen.dart';
 import 'package:etutor/ui/screens/home_screen.dart';
 import 'package:etutor/ui/screens/login_screen.dart';
 import 'package:etutor/ui/screens/signup_screen.dart';
+import 'package:etutor/ui/screens/teacher_dashboard_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomRoutes {
@@ -15,11 +17,15 @@ class CustomRoutes {
       case SignUpScreen.routeName:
         final args = settings.arguments as String;
         return MaterialPageRoute(builder: (_) => SignUpScreen(userType: args));
-      case DashBoardScreen.routeName:
-        return MaterialPageRoute(builder: (_) => DashBoardScreen());
+      case StudentDashboardScreen.routeName:
+        return MaterialPageRoute(builder: (_) => StudentDashboardScreen());
+      case TeacherDashboardScreen.routeName:
+        return MaterialPageRoute(builder: (_) => TeacherDashboardScreen());
+      case LandingScreen.routeName:
+        return MaterialPageRoute(builder: (_) => LandingScreen());
 
       default:
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        return MaterialPageRoute(builder: (_) => LandingScreen());
     }
   }
 }
