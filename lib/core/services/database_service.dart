@@ -29,25 +29,28 @@ class DatabaseService {
     return data[AppConfigs.userType];
   }
 
-  // Future<List> getTeacherNames() async {
-  //   List myData = [];
-  //   try {
-  //     final QuerySnapshot snapshot = await _firestore
-  //         .collection(AppConfigs.usersCollection)
-  //         .get();
-  //
-  //
-  //
-  //    for(var i in snapshot.docs) {
-  //      print(i.data());
-  //      myData.add();
-  //    }
-  //
-  //
-  //   } catch (e) {
-  //     print(
-  //         'Error occurred while fetching data from firestore ${e.toString()}');
-  //   }
-  // }
+  Future<List> getTeacherNames() async {
+    List<QueryDocumentSnapshot> teacherNames = [];
+    try {
+      final snapshot =
+          await _firestore.collection(AppConfigs.usersCollection).get();
 
+      var documents = snapshot.docs;
+
+      List<QueryDocumentSnapshot> filteredObject = documents
+          .where(
+              (doc) => doc.get(AppConfigs.userType) == AppConfigs.teacherType)
+          .toList();
+
+      filteredObject.forEach((element) {
+        teacherNames.add(element);
+      });
+
+      return teacherNames;
+    } catch (e) {
+      print(
+          'Error occurred while fetching data from firestore ${e.toString()}');
+      return teacherNames;
+    }
+  }
 }

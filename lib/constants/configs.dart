@@ -5,4 +5,5 @@ abstract class AppConfigs {
   //Database Service
   static const String usersCollection = 'users';
   static const String userType = 'userType';
+  static const String fullName = 'fullName';
 }

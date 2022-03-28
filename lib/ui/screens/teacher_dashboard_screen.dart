@@ -1,5 +1,6 @@
 import 'package:etutor/constants/strings/app_strings.dart';
 import 'package:etutor/core/services/auth_service.dart';
+import 'package:etutor/ui/custom_widgets/custom_drawer.dart';
 import 'package:etutor/ui/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
       appBar: AppBar(
         title: Text(AppStrings.teacherDashBoard),
       ),
-      drawer: Drawer(),
+      drawer: CustomDrawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

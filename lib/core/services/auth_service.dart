@@ -42,7 +42,7 @@ class AuthService {
         //Account Created Successfully
 
         await _dbService.saveAccountData(person, userCredential.user!.uid);
-
+        //Todo: if check and then add data to teacher collection
         return AuthResponse(status: true, message: '');
       }
     } on FirebaseAuthException catch (e) {
