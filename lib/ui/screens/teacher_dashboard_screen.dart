@@ -16,11 +16,27 @@ class TeacherDashboardScreen extends StatefulWidget {
 
 class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
   final AuthService _authService = AuthService();
+
+  Future<void> signOut() async {
+    await _authService.signOut();
+    Navigator.pushNamedAndRemoveUntil(
+        context, HomeScreen.routeName, (route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppStrings.teacherDashBoard),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.logout_outlined,
+              color: Colors.white,
+            ),
+            onPressed: signOut,
+          )
+        ],
       ),
       drawer: CustomDrawer(),
       body: Center(
@@ -28,7 +44,7 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('Teacher Dashboard '),
+            // Text('Teacher Dashboard '),
             ElevatedButton(
                 onPressed: () async {
                   await _authService.signOut();

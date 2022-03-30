@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:etutor/ui/screens/landing_screen.dart';
 import 'package:etutor/ui/screens/student_dashboard_screen.dart';
 import 'package:etutor/ui/screens/home_screen.dart';
 import 'package:etutor/ui/screens/login_screen.dart';
 import 'package:etutor/ui/screens/signup_screen.dart';
 import 'package:etutor/ui/screens/teacher_dashboard_screen.dart';
+import 'package:etutor/ui/screens/teacher_detail_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomRoutes {
@@ -23,6 +25,10 @@ class CustomRoutes {
         return MaterialPageRoute(builder: (_) => TeacherDashboardScreen());
       case LandingScreen.routeName:
         return MaterialPageRoute(builder: (_) => LandingScreen());
+      case TeacherDetailScreen.routeName:
+        final args = settings.arguments as QueryDocumentSnapshot;
+        return MaterialPageRoute(
+            builder: (_) => TeacherDetailScreen(teacherObject: args));
 
       default:
         return MaterialPageRoute(builder: (_) => LandingScreen());

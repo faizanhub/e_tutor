@@ -3,8 +3,10 @@ import 'package:etutor/constants/configs.dart';
 import 'package:etutor/constants/strings/app_strings.dart';
 import 'package:etutor/core/services/auth_service.dart';
 import 'package:etutor/core/services/database_service.dart';
+import 'package:etutor/core/utils/alert_dialog.dart';
 import 'package:etutor/ui/custom_widgets/custom_drawer.dart';
 import 'package:etutor/ui/screens/home_screen.dart';
+import 'package:etutor/ui/screens/teacher_detail_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +30,11 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
     await _authService.signOut();
     Navigator.pushNamedAndRemoveUntil(
         context, HomeScreen.routeName, (route) => false);
+  }
+
+  handleListTilePress(int index) {
+    Navigator.pushNamed(context, TeacherDetailScreen.routeName,
+        arguments: teacherNames[index]);
   }
 
   @override
@@ -64,7 +71,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
                         itemCount: teacherNames.length,
                         itemBuilder: (context, index) {
                           return ListTile(
-                            onTap: () {},
+                            onTap: () => handleListTilePress(index),
                             leading: CircleAvatar(
                               child: Text(
                                 teacherNames[index]
@@ -84,7 +91,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
                   );
                 }
 
-                return Center(child: Text('Loading...'));
+                return Expanded(child: Center(child: Text('Loading Data...')));
               },
             )
           ],

@@ -41,4 +41,11 @@ abstract class AppStrings {
   static const String wrongPassword = 'wrong-password';
   static const String weakPassword = 'weak-password';
   static const String emailAlreadyInUse = 'email-already-in-use';
+
+  //Student Dashboard Screen
+  static const String signOut = 'Sign Out';
+  static const String signOutDesc = 'Do you want to sign out?';
+
+  //Teacher Details Screen
+  static const String teacherDetails = 'Teacher Details';
 }
