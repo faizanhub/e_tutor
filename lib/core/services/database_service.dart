@@ -29,6 +29,17 @@ class DatabaseService {
     return data[AppConfigs.userType];
   }
 
+  Future<String> getUserName(User user) async {
+    final DocumentSnapshot snapshot = await _firestore
+        .collection(AppConfigs.usersCollection)
+        .doc(user.uid)
+        .get();
+
+    Map data = snapshot.data() as Map;
+
+    return data[AppConfigs.fullName];
+  }
+
   Future<List> getTeacherNames() async {
     List<QueryDocumentSnapshot> teacherNames = [];
     try {
@@ -56,4 +67,36 @@ class DatabaseService {
 
   //Update & Delete is pending
 
+  Future<void> createChatRoom(String chatRoomId, chatRoomMap) async {
+    try {
+      await _firestore
+          .collection(AppConfigs.chatRoomCollection)
+          .doc(chatRoomId)
+          .set(chatRoomMap);
+    } catch (e) {
+      print('Something went wrong while creating chat room ${e.toString()}');
+    }
+  }
+
+  Future<void> addConversationMessages(String chatRoomId, messageMap) async {
+    try {
+      await _firestore
+          .collection(AppConfigs.chatRoomCollection)
+          .doc(chatRoomId)
+          .collection(AppConfigs.messagesCollection)
+          .add(messageMap);
+    } catch (e) {
+      print('Something went wrong while sending message ${e.toString()}');
+    }
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getConversationMessages(
+      String chatRoomId) {
+    return _firestore
+        .collection(AppConfigs.chatRoomCollection)
+        .doc(chatRoomId)
+        .collection(AppConfigs.messagesCollection)
+        .orderBy('time', descending: true)
+        .snapshots();
+  }
 }

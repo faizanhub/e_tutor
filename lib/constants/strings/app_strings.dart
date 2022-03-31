@@ -48,4 +48,11 @@ abstract class AppStrings {
 
   //Teacher Details Screen
   static const String teacherDetails = 'Teacher Details';
+
+  //Chat Screen
+  static const String chat = 'Chat';
+  static const String loading = 'Loading...';
+
+  //Message Stream
+  static const String noMessages = 'No Messages';
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:etutor/ui/screens/chat_screen.dart';
 import 'package:etutor/ui/screens/landing_screen.dart';
 import 'package:etutor/ui/screens/student_dashboard_screen.dart';
 import 'package:etutor/ui/screens/home_screen.dart';
@@ -29,6 +30,12 @@ class CustomRoutes {
         final args = settings.arguments as QueryDocumentSnapshot;
         return MaterialPageRoute(
             builder: (_) => TeacherDetailScreen(teacherObject: args));
+      case ChatScreen.routeName:
+        final args = settings.arguments as String;
+        return MaterialPageRoute(
+            builder: (_) => ChatScreen(
+                  chatRoomId: args,
+                ));
 
       default:
         return MaterialPageRoute(builder: (_) => LandingScreen());
