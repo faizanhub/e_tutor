@@ -20,3 +20,7 @@ TextStyle loginNowTextStyle = alreadyhaveAccountStyle.copyWith(
 const TextStyle chatTextName = TextStyle(
   fontSize: 11,
 );
+
+const messageBubbleTextStyle = TextStyle(
+  color: Colors.white,
+);

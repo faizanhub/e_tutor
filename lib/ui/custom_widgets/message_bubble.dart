@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:etutor/constants/configs.dart';
 import 'package:flutter/material.dart';
 import 'package:etutor/constants/text_styles.dart';
+import 'package:intl/intl.dart';
 
 class MessageBubble extends StatelessWidget {
   final List<QueryDocumentSnapshot> messages;
@@ -18,6 +19,7 @@ class MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('**********' + isSendByMe.toString());
     return Container(
       width: MediaQuery.of(context).size.width,
       alignment: isSendByMe ? Alignment.centerRight : Alignment.centerLeft,
@@ -52,16 +54,54 @@ class MessageBubble extends StatelessWidget {
                     bottomRight: Radius.circular(23),
                   )),
         child: Column(
+          crossAxisAlignment:
+              isSendByMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             Text(
               messages[index].get(AppConfigs.text),
-              style: TextStyle(
-                color: Colors.white,
-              ),
+              style: messageBubbleTextStyle,
+              textAlign: TextAlign.center,
             ),
+            SizedBox(height: 5),
+            Text(
+              DateFormat("hh:mm a")
+                  .format(messages[index].get(AppConfigs.time).toDate()),
+              style: messageBubbleTextStyle.copyWith(color: Colors.grey),
+            ),
+            // Text(
+            //   DateFormat("dd-MM-y")
+            //       .format(messages[index].get(AppConfigs.time).toDate()),
+            //   style: messageBubbleTextStyle.copyWith(color: Colors.grey),
+            // ),
           ],
         ),
       ),
     );
   }
 }
+
+// Widget build(BuildContext context) {
+//   return Card(
+//     child: ListTile(
+//       leading: Column(
+//         children: [
+//           CircleAvatar(
+//             child: Text(
+//               senderName[0],
+//             ),
+//           ),
+//           SizedBox(height: 2),
+//           Text('$senderName', style: chatTextName),
+//         ],
+//       ),
+//       title: Text(messages[index].get(AppConfigs.text)),
+//       subtitle:
+//       Text(messages[index].get(AppConfigs.time).toDate().toString()),
+//     ),
+//   );
+// }
+// messages[index].get(AppConfigs.time).toDate().toString()
+
+// DateFormat.yMMMd()
+// .add_jms()
+//     .format(messages[index].get(AppConfigs.time).toDate()),
