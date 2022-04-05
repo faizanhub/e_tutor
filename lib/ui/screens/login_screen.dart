@@ -4,6 +4,7 @@ import 'package:etutor/constants/text_styles.dart';
 import 'package:etutor/core/services/auth_service.dart';
 import 'package:etutor/core/services/database_service.dart';
 import 'package:etutor/core/utils/alert_dialog.dart';
+import 'package:etutor/core/utils/my_shared_preferences.dart';
 import 'package:etutor/core/utils/snack_bar.dart';
 import 'package:etutor/core/utils/validators.dart';
 import 'package:etutor/ui/custom_widgets/custom_textfield.dart';
@@ -86,6 +87,12 @@ class _LoginScreenState extends State<LoginScreen> {
         toggleIsLoading(false);
 
         if (response.status) {
+          String userName =
+              await _dbService.getUserName(_authService.currentUser!);
+
+          //shared Preference work
+          MySharedPreference.saveUserNameSharedPreference(userName);
+
           ///Login Successful
           showSnackBar(context, AppStrings.loginSuccessful);
 

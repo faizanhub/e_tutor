@@ -31,10 +31,11 @@ class CustomRoutes {
         return MaterialPageRoute(
             builder: (_) => TeacherDetailScreen(teacherObject: args));
       case ChatScreen.routeName:
-        final args = settings.arguments as String;
+        final args = settings.arguments as List;
         return MaterialPageRoute(
             builder: (_) => ChatScreen(
-                  chatRoomId: args,
+                  chatRoomId: args[0],
+                  chatTitle: args[1],
                 ));
 
       default:

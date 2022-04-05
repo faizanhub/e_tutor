@@ -4,10 +4,24 @@ import 'package:etutor/core/models/person.dart';
 import 'package:etutor/core/services/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthService {
+abstract class AuthBase {
+  User? get currentUser;
+
+  Future<AuthResponse> login(String email, String password);
+  Future<AuthResponse> createAccount(Person person);
+  Future<void> signOut();
+}
+
+class AuthService extends AuthBase {
   final _firebaseAuth = FirebaseAuth.instance;
   final _dbService = DatabaseService();
 
+  @override
+  User? get currentUser {
+    return _firebaseAuth.currentUser;
+  }
+
+  @override
   Future<AuthResponse> login(String email, String password) async {
     try {
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
@@ -33,6 +47,7 @@ class AuthService {
         status: false, message: ErrorStrings.somethingWentWrong);
   }
 
+  @override
   Future<AuthResponse> createAccount(Person person) async {
     try {
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
@@ -62,10 +77,7 @@ class AuthService {
         status: false, message: ErrorStrings.somethingWentWrong);
   }
 
-  User? get currentUser {
-    return _firebaseAuth.currentUser;
-  }
-
+  @override
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }

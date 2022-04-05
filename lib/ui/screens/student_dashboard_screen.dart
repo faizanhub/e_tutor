@@ -34,7 +34,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
         context, HomeScreen.routeName, (route) => false);
   }
 
-  handleListTilePress(int index) async {
+  handleListTilePress(int index, String chatTitle) async {
     String currentUser = _authService.currentUser!.uid;
 
     String chatRoomId = getChatRoomId(currentUser, teacherNames[index].id);
@@ -44,11 +44,29 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
       "users": [currentUser, teacherNames[index].id]
     };
 
-    //TODO: create chat room collection here, then go to next screen
+    //create chat room collection here, then go to next screen
     await _databaseService.createChatRoom(chatRoomId, chatRoomMap);
 
-    Navigator.pushNamed(context, ChatScreen.routeName, arguments: chatRoomId);
+    Navigator.pushNamed(context, ChatScreen.routeName,
+        arguments: [chatRoomId, chatTitle]);
   }
+
+  Future<String> getUserName() async {
+    String userName =
+        await _databaseService.getUserName(_authService.currentUser!);
+    return userName;
+  }
+
+  // @override
+  // void initState() {
+  //   getUserName().then((userName) {
+  //     MySharedPreference.saveUserNameSharedPreference(userName);
+  //   }).catchError((e) {
+  //     print(e);
+  //   });
+  //
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +102,8 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
                         itemCount: teacherNames.length,
                         itemBuilder: (context, index) {
                           return ListTile(
-                            onTap: () => handleListTilePress(index),
+                            onTap: () => handleListTilePress(index,
+                                teacherNames[index].get(AppConfigs.fullName)),
                             leading: CircleAvatar(
                               child: Text(
                                 teacherNames[index]

@@ -1,3 +1,4 @@
+import 'package:etutor/core/utils/my_shared_preferences.dart';
 import 'package:etutor/routes.dart';
 import 'package:etutor/ui/screens/home_screen.dart';
 import 'package:etutor/ui/screens/landing_screen.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await MySharedPreference.init();
   runApp(const MyApp());
 }
 

@@ -13,4 +13,7 @@ abstract class AppConfigs {
   static const String senderName = 'sender_name';
   static const String text = 'text';
   static const String time = 'time';
+
+  //Shared Preference
+  static const String userNameKey = 'USERNAMEKEY';
 }

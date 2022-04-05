@@ -11,9 +11,11 @@ class ChatScreen extends StatefulWidget {
   static const String routeName = '/chatScreen';
 
   final String chatRoomId;
+  final String chatTitle;
 
   ChatScreen({
     required this.chatRoomId,
+    required this.chatTitle,
   });
 
   @override
@@ -64,7 +66,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.chat),
+        title: Text(widget.chatTitle),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -87,11 +89,12 @@ class _ChatScreenState extends State<ChatScreen> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 15.0),
                   child: IconButton(
-                      onPressed: handleSendMessage,
-                      icon: Icon(
-                        Icons.send,
-                        size: 40,
-                      )),
+                    onPressed: handleSendMessage,
+                    icon: Icon(
+                      Icons.send,
+                      size: 40,
+                    ),
+                  ),
                 )
               ],
             ),

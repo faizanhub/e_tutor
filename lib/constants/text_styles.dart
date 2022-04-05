@@ -16,3 +16,7 @@ const TextStyle alreadyhaveAccountStyle = TextStyle(
 TextStyle loginNowTextStyle = alreadyhaveAccountStyle.copyWith(
   color: Colors.purple,
 );
+
+const TextStyle chatTextName = TextStyle(
+  fontSize: 11,
+);
