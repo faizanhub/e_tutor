@@ -31,17 +31,6 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
     return userName;
   }
 
-  // @override
-  // void initState() {
-  //   getUserName().then((userName) {
-  //     MySharedPreference.saveUserNameSharedPreference(userName);
-  //   }).catchError((e) {
-  //     print(e);
-  //   });
-  //
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

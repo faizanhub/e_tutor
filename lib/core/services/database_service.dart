@@ -3,7 +3,21 @@ import 'package:etutor/constants/configs.dart';
 import 'package:etutor/core/models/person.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class DatabaseService {
+abstract class DBBase {
+  Future<void> saveAccountData(Person person, String uid);
+  Future<String> getUserType(User user);
+  Future<String> getUserName(User user);
+  Future<List> getTeacherNames();
+
+  Future<void> createChatRoom(String chatRoomId, chatRoomMap);
+  Future<void> addConversationMessages(String chatRoomId, messageMap);
+  Stream<QuerySnapshot<Map<String, dynamic>>> getConversationMessages(
+      String chatRoomId);
+
+  Future<List> get();
+}
+
+class DatabaseService extends DBBase {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<void> saveAccountData(Person person, String uid) async {

@@ -19,7 +19,6 @@ class MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('**********' + isSendByMe.toString());
     return Container(
       width: MediaQuery.of(context).size.width,
       alignment: isSendByMe ? Alignment.centerRight : Alignment.centerLeft,
@@ -64,10 +63,12 @@ class MessageBubble extends StatelessWidget {
             ),
             SizedBox(height: 5),
             Text(
-              DateFormat("hh:mm a")
+              DateFormat(AppConfigs.dateFormat)
                   .format(messages[index].get(AppConfigs.time).toDate()),
               style: messageBubbleTextStyle.copyWith(color: Colors.grey),
             ),
+
+            ///Date show
             // Text(
             //   DateFormat("dd-MM-y")
             //       .format(messages[index].get(AppConfigs.time).toDate()),
