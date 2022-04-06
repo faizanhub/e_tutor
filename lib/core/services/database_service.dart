@@ -8,13 +8,14 @@ abstract class DBBase {
   Future<String> getUserType(User user);
   Future<String> getUserName(User user);
   Future<List> getTeacherNames();
+  Future<List> getStudentNames();
 
   Future<void> createChatRoom(String chatRoomId, chatRoomMap);
   Future<void> addConversationMessages(String chatRoomId, messageMap);
   Stream<QuerySnapshot<Map<String, dynamic>>> getConversationMessages(
       String chatRoomId);
 
-  Future<List> get();
+  Future<List> getAllStudentChats(User user);
 }
 
 class DatabaseService extends DBBase {
@@ -79,6 +80,31 @@ class DatabaseService extends DBBase {
     }
   }
 
+  Future<List> getStudentNames() async {
+    List<QueryDocumentSnapshot> studentNames = [];
+    try {
+      final snapshot =
+          await _firestore.collection(AppConfigs.usersCollection).get();
+
+      var documents = snapshot.docs;
+
+      List<QueryDocumentSnapshot> filteredObject = documents
+          .where(
+              (doc) => doc.get(AppConfigs.userType) == AppConfigs.studentType)
+          .toList();
+
+      filteredObject.forEach((element) {
+        studentNames.add(element);
+      });
+
+      return studentNames;
+    } catch (e) {
+      print(
+          'Error occurred while fetching data from firestore ${e.toString()}');
+      return studentNames;
+    }
+  }
+
   //Update & Delete is pending
 
   Future<void> createChatRoom(String chatRoomId, chatRoomMap) async {
@@ -112,5 +138,55 @@ class DatabaseService extends DBBase {
         .collection(AppConfigs.messagesCollection)
         .orderBy('time', descending: true)
         .snapshots();
+  }
+
+  //work in this function
+  @override
+  Future<List<DocumentSnapshot>> getAllStudentChats(User user) async {
+    List<QueryDocumentSnapshot> studentChatNamesList = [];
+
+    List<DocumentSnapshot> listOfChats = [];
+    try {
+      final snapshot =
+          await _firestore.collection(AppConfigs.chatRoomCollection).get();
+
+      var documents = snapshot.docs;
+
+      List<QueryDocumentSnapshot> filteredObject =
+          documents.where((doc) => doc.id.contains(user.uid)).toList();
+
+      print('filetered list ${filteredObject.first.id}');
+
+      filteredObject.forEach((doc) {
+        studentChatNamesList.add(doc);
+      });
+
+      //student docs get done which chat is done already
+      // studentChatNamesList => documents of chatRoom
+      studentChatNamesList.forEach((doc) async {
+        List<dynamic> docs = doc.get('users') as List<dynamic>;
+
+        List chatUserUid =
+            docs.where((element) => element != user.uid).toList();
+
+        print(chatUserUid);
+
+        // print('Chat user id ' + chatUserUid[0]);
+
+        DocumentSnapshot snapshot = await _firestore
+            .collection(AppConfigs.usersCollection)
+            .doc(chatUserUid[0])
+            .get();
+
+        // Map xyz = snapshot.data() as Map;
+        listOfChats.add(snapshot);
+      });
+
+      return listOfChats;
+    } catch (e) {
+      print(
+          'Error occurred while fetching data from firestore ${e.toString()}');
+      return listOfChats;
+    }
   }
 }

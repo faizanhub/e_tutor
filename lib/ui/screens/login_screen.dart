@@ -59,17 +59,17 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void goToStudentDashboard() {
-    Navigator.pushAndRemoveUntil(
+    Navigator.pushNamedAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (_) => StudentDashboardScreen()),
+      StudentDashboardScreen.routeName,
       (Route<dynamic> route) => false,
     );
   }
 
   void goToTeacherDashboard() {
-    Navigator.pushAndRemoveUntil(
+    Navigator.pushNamedAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (_) => TeacherDashboardScreen()),
+      TeacherDashboardScreen.routeName,
       (Route<dynamic> route) => false,
     );
   }

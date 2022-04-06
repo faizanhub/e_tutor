@@ -21,6 +21,10 @@ const TextStyle chatTextName = TextStyle(
   fontSize: 11,
 );
 
-const messageBubbleTextStyle = TextStyle(
+const messageBubbleTextStyleMe = TextStyle(
   color: Colors.white,
+);
+
+const messageBubbleTextStyleOther = TextStyle(
+  color: Colors.black,
 );

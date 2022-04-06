@@ -22,60 +22,81 @@ class MessageBubble extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       alignment: isSendByMe ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width / 1.2,
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
-        decoration: BoxDecoration(
-            // color: Colors.blue,
-            gradient: LinearGradient(
-              colors: isSendByMe
-                  ? [
-                      Colors.purple,
-                      Colors.deepPurple,
-                    ]
-                  : [
-                      const Color(0xFF2e2e2e),
-                      const Color(0xFF2e2e2e),
-                    ],
+      child: Column(
+        crossAxisAlignment:
+            isSendByMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        children: [
+          Container(
+            constraints: BoxConstraints(
+              maxWidth: MediaQuery.of(context).size.width / 1.2,
             ),
-            borderRadius: isSendByMe
-                ? BorderRadius.only(
-                    topLeft: Radius.circular(23),
-                    topRight: Radius.circular(23),
-                    bottomLeft: Radius.circular(23),
-                  )
-                : BorderRadius.only(
-                    topLeft: Radius.circular(23),
-                    topRight: Radius.circular(23),
-                    bottomRight: Radius.circular(23),
-                  )),
-        child: Column(
-          crossAxisAlignment:
-              isSendByMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-          children: [
-            Text(
-              messages[index].get(AppConfigs.text),
-              style: messageBubbleTextStyle,
-              textAlign: TextAlign.center,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+            margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+            decoration: BoxDecoration(
+                // color: Colors.blue,
+                gradient: LinearGradient(
+                  colors: isSendByMe
+                      ? [
+                          Colors.purple,
+                          Colors.deepPurple,
+                        ]
+                      : [
+                          // const Color(0xFF2e2e2e),
+                          // const Color(0xFF2e2e2e),
+                          const Color(0xFFf5f6fa),
+                          const Color(0xFFf5f6fa),
+                        ],
+                ),
+                borderRadius: isSendByMe
+                    ? BorderRadius.only(
+                        topLeft: Radius.circular(23),
+                        bottomRight: Radius.circular(23),
+                        bottomLeft: Radius.circular(23),
+                      )
+                    : BorderRadius.only(
+                        bottomLeft: Radius.circular(23),
+                        topRight: Radius.circular(23),
+                        bottomRight: Radius.circular(23),
+                      )),
+            child: Column(
+              crossAxisAlignment: isSendByMe
+                  ? CrossAxisAlignment.end
+                  : CrossAxisAlignment.start,
+              children: [
+                Text(
+                  messages[index].get(AppConfigs.text),
+                  style: isSendByMe
+                      ? messageBubbleTextStyleMe
+                      : messageBubbleTextStyleOther,
+                  textAlign: TextAlign.center,
+                ),
+
+                // Text(
+                //   DateFormat(AppConfigs.dateFormat)
+                //       .format(messages[index].get(AppConfigs.time).toDate()),
+                //   style: messageBubbleTextStyleMe.copyWith(color: Colors.grey),
+                // ),
+
+                ///Date show
+                // Text(
+                //   DateFormat("dd-MM-y")
+                //       .format(messages[index].get(AppConfigs.time).toDate()),
+                //   style: messageBubbleTextStyle.copyWith(color: Colors.grey),
+                // ),
+              ],
             ),
-            SizedBox(height: 5),
-            Text(
+          ),
+          SizedBox(height: 0),
+          Container(
+            // alignment: Alignment.bottomRight,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Text(
               DateFormat(AppConfigs.dateFormat)
                   .format(messages[index].get(AppConfigs.time).toDate()),
-              style: messageBubbleTextStyle.copyWith(color: Colors.grey),
+              style: messageBubbleTextStyleMe.copyWith(color: Colors.grey),
             ),
-
-            ///Date show
-            // Text(
-            //   DateFormat("dd-MM-y")
-            //       .format(messages[index].get(AppConfigs.time).toDate()),
-            //   style: messageBubbleTextStyle.copyWith(color: Colors.grey),
-            // ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
