@@ -1,31 +1,27 @@
+import 'package:etutor/constants/strings/error_strings.dart';
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:etutor/constants/configs.dart';
 import 'package:etutor/constants/strings/app_strings.dart';
 import 'package:etutor/core/services/auth_service.dart';
 import 'package:etutor/core/services/database_service.dart';
-import 'package:etutor/core/utils/alert_dialog.dart';
 import 'package:etutor/core/utils/compare_two_strings.dart';
 import 'package:etutor/ui/custom_widgets/custom_drawer.dart';
 import 'package:etutor/ui/screens/chat_screen.dart';
 import 'package:etutor/ui/screens/home_screen.dart';
-import 'package:etutor/ui/screens/teacher_detail_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
-class StudentDashboardScreen extends StatefulWidget {
-  static const String routeName = '/studentDashboard';
-
-  // const StudentDashboardScreen({Key? key}) : super(key: key);
+class ShowAllStudentsScreen extends StatefulWidget {
+  static const String routeName = '/showAllStudents';
 
   @override
-  State<StudentDashboardScreen> createState() => _StudentDashboardScreenState();
+  State<ShowAllStudentsScreen> createState() => _ShowAllStudentsScreenState();
 }
 
-class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
+class _ShowAllStudentsScreenState extends State<ShowAllStudentsScreen> {
   AuthService _authService = AuthService();
   DatabaseService _databaseService = DatabaseService();
 
-  List<QueryDocumentSnapshot> teacherNames = [];
+  List<QueryDocumentSnapshot> studentNames = [];
 
   Future<void> signOut() async {
     await _authService.signOut();
@@ -36,11 +32,11 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
   handleListTilePress(int index, String chatTitle) async {
     String currentUser = _authService.currentUser!.uid;
 
-    String chatRoomId = getChatRoomId(currentUser, teacherNames[index].id);
+    String chatRoomId = getChatRoomId(currentUser, studentNames[index].id);
 
     Map<String, dynamic> chatRoomMap = {
       "chatRoomId": chatRoomId,
-      "users": [currentUser, teacherNames[index].id]
+      "users": [currentUser, studentNames[index].id]
     };
 
     //create chat room collection here, then go to next screen
@@ -60,7 +56,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.studentDashBoard),
+        title: Text(AppStrings.allStudents),
         actions: [
           IconButton(
             icon: Icon(
@@ -71,47 +67,48 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
           )
         ],
       ),
-      drawer: CustomDrawer(),
+      // drawer: CustomDrawer(),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             FutureBuilder(
-              future: _databaseService.getTeacherNames(),
+              future: _databaseService.getStudentNames(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
-                  print('some error occurred');
+                  print(ErrorStrings.someErrorOccurred);
                 }
 
                 if (snapshot.hasData && snapshot.data != null) {
-                  teacherNames = snapshot.data as List<QueryDocumentSnapshot>;
+                  studentNames = snapshot.data as List<QueryDocumentSnapshot>;
                   return Expanded(
                     child: ListView.builder(
-                        itemCount: teacherNames.length,
+                        itemCount: studentNames.length,
                         itemBuilder: (context, index) {
                           return ListTile(
                             onTap: () => handleListTilePress(index,
-                                teacherNames[index].get(AppConfigs.fullName)),
+                                studentNames[index].get(AppConfigs.fullName)),
                             leading: CircleAvatar(
                               child: Text(
-                                teacherNames[index]
+                                studentNames[index]
                                     .get(AppConfigs.fullName)[0]
                                     .toUpperCase(),
                               ),
                             ),
                             title: Text(
-                              teacherNames[index].get(AppConfigs.fullName),
+                              studentNames[index].get(AppConfigs.fullName),
                             ),
-                            subtitle:
-                                Text('${teacherNames[index].get('email')}'),
-                            trailing:
-                                Text('${teacherNames[index].get('city')}'),
+                            subtitle: Text(
+                                '${studentNames[index].get(AppConfigs.email)}'),
+                            trailing: Text(
+                                '${studentNames[index].get(AppConfigs.city)}'),
                           );
                         }),
                   );
                 }
 
-                return Expanded(child: Center(child: Text('Loading Data...')));
+                return Expanded(
+                    child: Center(child: Text(AppStrings.loadingData)));
               },
             )
           ],

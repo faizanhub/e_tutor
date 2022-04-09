@@ -6,6 +6,8 @@ abstract class AppConfigs {
   static const String usersCollection = 'users';
   static const String userType = 'userType';
   static const String fullName = 'fullName';
+  static const String email = 'email';
+  static const String city = 'city';
   static const String chatRoomCollection = 'chatRoom';
   static const String messagesCollection = 'messages';
 
@@ -19,4 +21,9 @@ abstract class AppConfigs {
 
   //Shared Preference
   static const String userNameKey = 'USERNAMEKEY';
+
+  //PopUp Menu Buttons
+  static const String showAllStudents = 'showAllStudents';
+  static const String updateProfile = 'updateProfile';
+  static const String logOut = 'logout';
 }

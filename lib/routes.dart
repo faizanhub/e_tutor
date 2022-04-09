@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:etutor/ui/screens/chat_screen.dart';
 import 'package:etutor/ui/screens/landing_screen.dart';
+import 'package:etutor/ui/screens/show_all_students_screen.dart';
 import 'package:etutor/ui/screens/student_dashboard_screen.dart';
 import 'package:etutor/ui/screens/home_screen.dart';
 import 'package:etutor/ui/screens/login_screen.dart';
 import 'package:etutor/ui/screens/signup_screen.dart';
 import 'package:etutor/ui/screens/teacher_dashboard_screen.dart';
 import 'package:etutor/ui/screens/teacher_detail_screen.dart';
+import 'package:etutor/ui/screens/teacher_update_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomRoutes {
@@ -37,6 +39,12 @@ class CustomRoutes {
                   chatRoomId: args[0],
                   chatTitle: args[1],
                 ));
+
+      case ShowAllStudentsScreen.routeName:
+        return MaterialPageRoute(builder: (_) => ShowAllStudentsScreen());
+
+      case TeacherUpdateProfileScreen.routeName:
+        return MaterialPageRoute(builder: (_) => TeacherUpdateProfileScreen());
 
       default:
         return MaterialPageRoute(builder: (_) => LandingScreen());

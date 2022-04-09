@@ -7,6 +7,8 @@ import 'package:etutor/core/utils/compare_two_strings.dart';
 import 'package:etutor/ui/custom_widgets/custom_drawer.dart';
 import 'package:etutor/ui/screens/chat_screen.dart';
 import 'package:etutor/ui/screens/home_screen.dart';
+import 'package:etutor/ui/screens/show_all_students_screen.dart';
+import 'package:etutor/ui/screens/teacher_update_profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +31,13 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
     await _authService.signOut();
     Navigator.pushNamedAndRemoveUntil(
         context, HomeScreen.routeName, (route) => false);
+  }
+
+  showAllStudents() {
+    Navigator.pushNamed(
+      context,
+      ShowAllStudentsScreen.routeName,
+    );
   }
 
   Future<String> getUserName() async {
@@ -64,19 +73,47 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
         arguments: [chatRoomId, chatTitle]);
   }
 
+  handleOnSelectedPopUpMenu(value) {
+    switch (value) {
+      case AppConfigs.showAllStudents:
+        showAllStudents();
+        break;
+      case AppConfigs.logOut:
+        signOut();
+        break;
+      case AppConfigs.updateProfile:
+        Navigator.pushNamed(context, TeacherUpdateProfileScreen.routeName);
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.teacherDashBoard),
+        centerTitle: false,
+        title: Text(
+          AppStrings.teacherDashBoard,
+        ),
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.logout_outlined,
-              color: Colors.white,
-            ),
-            onPressed: signOut,
-          )
+          PopupMenuButton<String>(
+            onSelected: handleOnSelectedPopUpMenu,
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: Text(AppStrings.showAllStudents),
+                value: AppConfigs.showAllStudents,
+              ),
+              PopupMenuItem(
+                child: Text(AppStrings.updateProfile),
+                value: AppConfigs.updateProfile,
+              ),
+              PopupMenuDivider(),
+              PopupMenuItem(
+                child: Text(AppStrings.logout),
+                value: AppConfigs.logOut,
+              ),
+            ],
+          ),
         ],
       ),
       drawer: CustomDrawer(),
@@ -100,9 +137,10 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
                         itemBuilder: (context, index) {
                           return ListTile(
                             onTap: () => handleListTilePress(
-                                index,
-                                allStudentsChatsList[index]
-                                    .get(AppConfigs.fullName)),
+                              index,
+                              allStudentsChatsList[index]
+                                  .get(AppConfigs.fullName),
+                            ),
                             leading: CircleAvatar(
                               child: Text(
                                 allStudentsChatsList[index]
@@ -115,9 +153,9 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
                                   .get(AppConfigs.fullName),
                             ),
                             subtitle: Text(
-                                '${allStudentsChatsList[index].get('email')}'),
+                                '${allStudentsChatsList[index].get(AppConfigs.email)}'),
                             trailing: Text(
-                                '${allStudentsChatsList[index].get('city')}'),
+                                '${allStudentsChatsList[index].get(AppConfigs.city)}'),
                           );
                         }),
                   );
@@ -125,10 +163,11 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
 
                 if (snapshot.hasData && snapshot.data == null) {
                   return Expanded(
-                      child: Center(child: Text('No chats done yet...')));
+                      child: Center(child: Text(AppStrings.noChatsDoneYet)));
                 }
 
-                return Expanded(child: Center(child: Text('Loading Data...')));
+                return Expanded(
+                    child: Center(child: Text(AppStrings.loadingData)));
               },
             )
           ],

@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
           centerTitle: true,
         ),
       ),
-      // initialRoute: HomeScreen.routeName,
       initialRoute: LandingScreen.routeName,
       onGenerateRoute: CustomRoutes.onGenerateRoute,
     );

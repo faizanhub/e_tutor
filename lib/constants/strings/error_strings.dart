@@ -11,4 +11,6 @@ abstract class ErrorStrings {
   static const String dataLoadError = 'Error occurred while fetching data';
   static const String messageShouldNotBeEmpty =
       'Message field should not be empty';
+
+  static const String someErrorOccurred = 'Some Error Occurred';
 }

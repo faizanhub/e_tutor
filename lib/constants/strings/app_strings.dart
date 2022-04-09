@@ -35,6 +35,7 @@ abstract class AppStrings {
   //Dashboard Screen
   static const String studentDashBoard = 'Student Dashboard';
   static const String teacherDashBoard = 'Teacher Dashboard';
+  static const String allStudents = 'All Students';
 
   //Auth Service
   static const String userNotFound = 'user-not-found';
@@ -45,6 +46,13 @@ abstract class AppStrings {
   //Student Dashboard Screen
   static const String signOut = 'Sign Out';
   static const String signOutDesc = 'Do you want to sign out?';
+
+  //Teacher Dashboard Screen
+  static const String noChatsDoneYet = 'No Chats Done Yet...';
+  static const String loadingData = 'Loading Data...';
+  static const String showAllStudents = 'Show All Students';
+  static const String updateProfile = 'Update Profile';
+  static const String logout = 'Logout';
 
   //Teacher Details Screen
   static const String teacherDetails = 'Teacher Details';

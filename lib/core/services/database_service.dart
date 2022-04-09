@@ -9,12 +9,11 @@ abstract class DBBase {
   Future<String> getUserName(User user);
   Future<List> getTeacherNames();
   Future<List> getStudentNames();
-
   Future<void> createChatRoom(String chatRoomId, chatRoomMap);
   Future<void> addConversationMessages(String chatRoomId, messageMap);
+
   Stream<QuerySnapshot<Map<String, dynamic>>> getConversationMessages(
       String chatRoomId);
-
   Future<List> getAllStudentChats(User user);
 }
 
@@ -155,7 +154,7 @@ class DatabaseService extends DBBase {
       List<QueryDocumentSnapshot> filteredObject =
           documents.where((doc) => doc.id.contains(user.uid)).toList();
 
-      print('filetered list ${filteredObject.first.id}');
+      // print('filetered list ${filteredObject.first.id}');
 
       filteredObject.forEach((doc) {
         studentChatNamesList.add(doc);
@@ -164,13 +163,13 @@ class DatabaseService extends DBBase {
       //student docs get done which chat is done already
       // studentChatNamesList => documents of chatRoom
       studentChatNamesList.forEach((doc) async {
-        List<dynamic> docs = doc.get('users') as List<dynamic>;
+        List<dynamic> docs =
+            doc.get(AppConfigs.usersCollection) as List<dynamic>;
 
         List chatUserUid =
             docs.where((element) => element != user.uid).toList();
 
-        print(chatUserUid);
-
+        // print(chatUserUid);
         // print('Chat user id ' + chatUserUid[0]);
 
         DocumentSnapshot snapshot = await _firestore
