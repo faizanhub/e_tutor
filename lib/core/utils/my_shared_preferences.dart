@@ -7,18 +7,16 @@ class MySharedPreference {
 
   static SharedPreferences? _preferences;
 
-  /// saving data to sharedpreference
-
-  static Future<bool> saveUserNameSharedPreference(String userName) async {
-    return await _preferences!.setString(sharedPreferenceUserNameKey, userName);
-  }
-
-  /// fetching data from sharedpreference
-
   static init() async {
     _preferences = await SharedPreferences.getInstance();
   }
 
+  // saving data to sharedpreference
+  static Future<bool> saveUserNameSharedPreference(String userName) async {
+    return await _preferences!.setString(sharedPreferenceUserNameKey, userName);
+  }
+
+  // fetching data from sharedpreference
   static String getUserNameSharedPreference() {
     return _preferences!.getString(sharedPreferenceUserNameKey) ?? '';
   }
