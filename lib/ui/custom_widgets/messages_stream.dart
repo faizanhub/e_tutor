@@ -55,7 +55,7 @@ class MessagesStream extends StatelessWidget {
             itemCount: messages.length,
             itemBuilder: (context, index) {
               String senderName =
-                  messages[index].get(AppConfigs.senderName) as String;
+                  messages[index].get(AppConfigs.senderId) as String;
 
               String myName = MySharedPreference.getUserNameSharedPreference();
 

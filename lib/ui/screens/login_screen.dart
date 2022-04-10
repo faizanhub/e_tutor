@@ -91,7 +91,8 @@ class _LoginScreenState extends State<LoginScreen> {
               await _dbService.getUserName(_authService.currentUser!);
 
           //shared Preference work
-          MySharedPreference.saveUserNameSharedPreference(userName);
+          MySharedPreference.saveUserNameSharedPreference(
+              _authService.currentUser!.uid);
 
           ///Login Successful
           showSnackBar(context, AppStrings.loginSuccessful);

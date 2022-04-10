@@ -16,6 +16,7 @@ abstract class AppConfigs {
 
   //Messages Stream Widget
   static const String senderName = 'sender_name';
+  static const String senderId = 'sender_id';
   static const String text = 'text';
   static const String time = 'time';
 
