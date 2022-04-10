@@ -8,6 +8,9 @@ abstract class AppConfigs {
   static const String fullName = 'fullName';
   static const String email = 'email';
   static const String city = 'city';
+  static const String address = 'address';
+  static const String subjects = 'subjects';
+  static const String experience = 'experience';
   static const String chatRoomCollection = 'chatRoom';
   static const String messagesCollection = 'messages';
 
