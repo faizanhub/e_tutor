@@ -87,8 +87,8 @@ class _LoginScreenState extends State<LoginScreen> {
         toggleIsLoading(false);
 
         if (response.status) {
-          String userName =
-              await _dbService.getUserName(_authService.currentUser!);
+          // String userName =
+          //     await _dbService.getUserName(_authService.currentUser!);
 
           //shared Preference work
           MySharedPreference.saveUserNameSharedPreference(
