@@ -85,6 +85,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: CustomTextField(
                     controller: messageC,
                     hintText: 'Enter your message',
+                    minLines: 1,
+                    maxLines: 3,
                   ),
                 ),
                 Padding(

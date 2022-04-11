@@ -129,14 +129,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         CustomTextField(
                           hintText: AppStrings.email,
+                          labelText: AppStrings.email,
                           prefixIcon: Icons.email,
                           controller: emailController,
                           validator: validateEmailField,
                         ),
                         CustomTextField(
                           hintText: AppStrings.password,
+                          labelText: AppStrings.password,
                           prefixIcon: Icons.lock_outlined,
                           obsecureText: true,
+                          maxLines: 1,
                           controller: passwordController,
                           validator: validatePasswordField,
                         ),
