@@ -6,12 +6,15 @@ abstract class AppStrings {
 
   //SignUp Screen
   static const String createAccount = 'Create Account';
+  static const String update = 'Update';
   static const String fullName = 'Full Name';
   static const String city = 'City';
   static const String address = 'Address';
   static const String email = 'Email';
   static const String password = 'Password';
   static const String confirmPassword = 'Confirm Password';
+  static const String subjects = 'Subjects';
+  static const String experience = 'Experience';
   static const String alreadyHaveAccount = 'Already have an account? ';
   static const String loginNow = 'Login Now';
   static const String accountCreatedSuccessfully =

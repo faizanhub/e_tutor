@@ -8,6 +8,9 @@ class CustomTextField extends StatelessWidget {
   final bool obsecureText;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
+  final String? labelText;
+  final int? minLines;
+  final int? maxLines;
 
   CustomTextField({
     this.controller,
@@ -16,6 +19,9 @@ class CustomTextField extends StatelessWidget {
     this.obsecureText = false,
     this.validator,
     this.keyboardType,
+    this.labelText,
+    this.minLines,
+    this.maxLines,
   });
 
   @override
@@ -27,8 +33,11 @@ class CustomTextField extends StatelessWidget {
         obscureText: obsecureText,
         validator: validator,
         keyboardType: keyboardType,
+        minLines: minLines,
+        maxLines: maxLines,
         decoration: InputDecoration(
           prefixIcon: Icon(prefixIcon),
+          labelText: labelText,
           hintText: hintText,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),

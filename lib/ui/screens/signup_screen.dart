@@ -105,30 +105,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           children: [
                             CustomTextField(
                               hintText: AppStrings.fullName,
+                              labelText: AppStrings.fullName,
                               prefixIcon: Icons.person_outlined,
                               controller: fullNameC,
                               validator: validateFullNameField,
                             ),
                             CustomTextField(
                               hintText: AppStrings.email,
+                              labelText: AppStrings.email,
                               prefixIcon: Icons.email,
                               controller: emailC,
                               validator: validateEmailField,
                             ),
                             CustomTextField(
                               hintText: AppStrings.city,
+                              labelText: AppStrings.city,
                               prefixIcon: Icons.place_outlined,
                               controller: cityC,
                               validator: validateCityField,
                             ),
                             CustomTextField(
                               hintText: AppStrings.address,
+                              labelText: AppStrings.address,
                               prefixIcon: Icons.home_outlined,
                               controller: addressC,
                               validator: validateCityField,
                             ),
                             CustomTextField(
                               hintText: AppStrings.password,
+                              labelText: AppStrings.password,
                               prefixIcon: Icons.lock_outlined,
                               obsecureText: true,
                               controller: passwordC,
@@ -137,6 +142,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             CustomTextField(
                               hintText: AppStrings.confirmPassword,
+                              labelText: AppStrings.confirmPassword,
                               prefixIcon: Icons.lock_outlined,
                               obsecureText: true,
                               controller: confirmPasswordC,

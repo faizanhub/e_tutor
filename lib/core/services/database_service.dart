@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:etutor/constants/configs.dart';
+import 'package:etutor/constants/strings/error_strings.dart';
 import 'package:etutor/core/models/person.dart';
+import 'package:etutor/core/models/updateTeacher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class DBBase {
@@ -15,6 +17,10 @@ abstract class DBBase {
   Stream<QuerySnapshot<Map<String, dynamic>>> getConversationMessages(
       String chatRoomId);
   Future<List> getAllStudentChats(User user);
+
+  Future<Map<String, dynamic>> getTeacherData(User user);
+
+  Future<void> updateTeacherData(UpdateTeacher teacher, String uid);
 }
 
 class DatabaseService extends DBBase {
@@ -139,7 +145,6 @@ class DatabaseService extends DBBase {
         .snapshots();
   }
 
-  //work in this function
   @override
   Future<List<DocumentSnapshot>> getAllStudentChats(User user) async {
     List<QueryDocumentSnapshot> studentChatNamesList = [];
@@ -186,6 +191,37 @@ class DatabaseService extends DBBase {
       print(
           'Error occurred while fetching data from firestore ${e.toString()}');
       return listOfChats;
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> getTeacherData(User user) async {
+    try {
+      final snapshot = await _firestore
+          .collection(AppConfigs.usersCollection)
+          .doc(user.uid)
+          .get();
+
+      var teacherData = snapshot.data() as Map<String, dynamic>;
+
+      return teacherData;
+    } catch (e) {
+      print(
+          'Error occurred while fetching data from firestore ${e.toString()}');
+
+      throw Exception(ErrorStrings.dataLoadError);
+    }
+  }
+
+  Future<void> updateTeacherData(UpdateTeacher teacher, String uid) async {
+    try {
+      await _firestore
+          .collection(AppConfigs.usersCollection)
+          .doc(uid)
+          .set(teacher.toJson(), SetOptions(merge: true));
+    } catch (e) {
+      print(
+          'Exception occurred while saving data to firestore ${e.toString()}');
     }
   }
 }

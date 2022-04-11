@@ -87,11 +87,12 @@ class _LoginScreenState extends State<LoginScreen> {
         toggleIsLoading(false);
 
         if (response.status) {
-          String userName =
-              await _dbService.getUserName(_authService.currentUser!);
+          // String userName =
+          //     await _dbService.getUserName(_authService.currentUser!);
 
           //shared Preference work
-          MySharedPreference.saveUserNameSharedPreference(userName);
+          MySharedPreference.saveUserNameSharedPreference(
+              _authService.currentUser!.uid);
 
           ///Login Successful
           showSnackBar(context, AppStrings.loginSuccessful);
@@ -128,14 +129,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         CustomTextField(
                           hintText: AppStrings.email,
+                          labelText: AppStrings.email,
                           prefixIcon: Icons.email,
                           controller: emailController,
                           validator: validateEmailField,
                         ),
                         CustomTextField(
                           hintText: AppStrings.password,
+                          labelText: AppStrings.password,
                           prefixIcon: Icons.lock_outlined,
                           obsecureText: true,
+                          maxLines: 1,
                           controller: passwordController,
                           validator: validatePasswordField,
                         ),

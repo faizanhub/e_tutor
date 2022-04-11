@@ -44,7 +44,9 @@ class CustomRoutes {
         return MaterialPageRoute(builder: (_) => ShowAllStudentsScreen());
 
       case TeacherUpdateProfileScreen.routeName:
-        return MaterialPageRoute(builder: (_) => TeacherUpdateProfileScreen());
+        final args = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+            builder: (_) => TeacherUpdateProfileScreen(teacherData: args));
 
       default:
         return MaterialPageRoute(builder: (_) => LandingScreen());

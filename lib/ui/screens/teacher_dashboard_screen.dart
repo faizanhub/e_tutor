@@ -24,8 +24,11 @@ class TeacherDashboardScreen extends StatefulWidget {
 class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
   final AuthService _authService = AuthService();
   final DatabaseService _databaseService = DatabaseService();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   List<DocumentSnapshot> allStudentsChatsList = [];
+
+  Map teacherData = {};
 
   Future<void> signOut() async {
     await _authService.signOut();
@@ -73,7 +76,7 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
         arguments: [chatRoomId, chatTitle]);
   }
 
-  handleOnSelectedPopUpMenu(value) {
+  handleOnSelectedPopUpMenu(value) async {
     switch (value) {
       case AppConfigs.showAllStudents:
         showAllStudents();
@@ -82,9 +85,26 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
         signOut();
         break;
       case AppConfigs.updateProfile:
-        Navigator.pushNamed(context, TeacherUpdateProfileScreen.routeName);
+        Navigator.pushNamed(context, TeacherUpdateProfileScreen.routeName,
+            arguments: teacherData);
         break;
     }
+  }
+
+  getTeacherData() async {
+    try {
+      teacherData =
+          await _databaseService.getTeacherData(_firebaseAuth.currentUser!);
+    } catch (e) {
+      print("Error $e");
+    }
+  }
+
+  @override
+  void initState() {
+    getTeacherData();
+
+    super.initState();
   }
 
   @override
