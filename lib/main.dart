@@ -1,9 +1,9 @@
 import 'package:etutor/core/utils/my_shared_preferences.dart';
 import 'package:etutor/routes.dart';
 import 'package:etutor/ui/screens/home_screen.dart';
-import 'package:etutor/ui/screens/landing_screen.dart';
-import 'package:etutor/ui/screens/login_screen.dart';
-import 'package:etutor/ui/screens/signup_screen.dart';
+import 'package:etutor/ui/screens/auth/landing_screen.dart';
+import 'package:etutor/ui/screens/auth/login_screen.dart';
+import 'package:etutor/ui/screens/auth/signup_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 

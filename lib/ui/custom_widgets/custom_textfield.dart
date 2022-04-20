@@ -11,6 +11,8 @@ class CustomTextField extends StatelessWidget {
   final String? labelText;
   final int? minLines;
   final int? maxLines;
+  final bool readOnly;
+  final bool? enabled;
 
   CustomTextField({
     this.controller,
@@ -22,6 +24,8 @@ class CustomTextField extends StatelessWidget {
     this.labelText,
     this.minLines,
     this.maxLines,
+    this.readOnly = false,
+    this.enabled,
   });
 
   @override
@@ -29,7 +33,9 @@ class CustomTextField extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: 15),
       child: TextFormField(
+        enabled: enabled,
         controller: controller,
+        readOnly: readOnly,
         obscureText: obsecureText,
         validator: validator,
         keyboardType: keyboardType,

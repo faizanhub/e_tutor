@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:etutor/constants/configs.dart';
 import 'package:etutor/constants/strings/app_strings.dart';
 import 'package:etutor/constants/strings/error_strings.dart';
 import 'package:etutor/core/services/auth_service.dart';
@@ -5,17 +7,19 @@ import 'package:etutor/core/services/database_service.dart';
 import 'package:etutor/core/utils/alert_dialog.dart';
 import 'package:etutor/ui/custom_widgets/custom_textfield.dart';
 import 'package:etutor/ui/custom_widgets/messages_stream.dart';
+import 'package:etutor/ui/screens/student_side/student_detail_screen.dart';
+import 'package:etutor/ui/screens/teacher_side/teacher_detail_screen.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String routeName = '/chatScreen';
 
   final String chatRoomId;
-  final String chatTitle;
+  final DocumentSnapshot snapshot;
 
   ChatScreen({
     required this.chatRoomId,
-    required this.chatTitle,
+    required this.snapshot,
   });
 
   @override
@@ -62,12 +66,24 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
+  handleAppBarClick() {
+    if (widget.snapshot[AppConfigs.userType] == AppConfigs.teacherType) {
+      Navigator.pushNamed(context, TeacherDetailScreen.routeName,
+          arguments: widget.snapshot);
+    } else if (widget.snapshot[AppConfigs.userType] == AppConfigs.studentType) {
+      Navigator.pushNamed(context, StudentDetailScreen.routeName,
+          arguments: widget.snapshot);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0.9),
       appBar: AppBar(
-        title: Text(widget.chatTitle),
+        title: GestureDetector(
+            onTap: handleAppBarClick,
+            child: Text(widget.snapshot.get(AppConfigs.fullName))),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -76,7 +92,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ///Messages Area
           MessagesStream(chatRoomId: widget.chatRoomId),
 
-          ///TextBox Area
+          ///TextBox AreaS
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
