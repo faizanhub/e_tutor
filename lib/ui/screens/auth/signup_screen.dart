@@ -139,6 +139,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               controller: passwordC,
                               validator: validatePasswordField,
                               keyboardType: TextInputType.visiblePassword,
+                              maxLines: 1,
                             ),
                             CustomTextField(
                               hintText: AppStrings.confirmPassword,
@@ -148,6 +149,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               controller: confirmPasswordC,
                               validator: validatePasswordField,
                               keyboardType: TextInputType.visiblePassword,
+                              maxLines: 1,
                             ),
                           ],
                         ),

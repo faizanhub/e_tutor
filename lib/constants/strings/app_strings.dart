@@ -7,6 +7,7 @@ abstract class AppStrings {
   //SignUp Screen
   static const String createAccount = 'Create Account';
   static const String update = 'Update';
+  static const String back = 'Back';
   static const String fullName = 'Full Name';
   static const String city = 'City';
   static const String address = 'Address';
@@ -54,6 +55,7 @@ abstract class AppStrings {
   static const String noChatsDoneYet = 'No Chats Done Yet...';
   static const String loadingData = 'Loading Data...';
   static const String showAllStudents = 'Show All Students';
+  static const String showAllTeachers = 'Show All Teachers';
   static const String updateProfile = 'Update Profile';
   static const String logout = 'Logout';
 
@@ -66,4 +68,7 @@ abstract class AppStrings {
 
   //Message Stream
   static const String noMessages = 'No Messages';
+
+  //Profile Screen
+  static const String profile = 'Profile';
 }

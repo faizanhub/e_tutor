@@ -9,9 +9,9 @@ import 'package:etutor/core/utils/snack_bar.dart';
 import 'package:etutor/core/utils/validators.dart';
 import 'package:etutor/ui/custom_widgets/custom_textfield.dart';
 import 'package:etutor/ui/screens/home_screen.dart';
-import 'package:etutor/ui/screens/student_dashboard_screen.dart';
-import 'package:etutor/ui/screens/signup_screen.dart';
-import 'package:etutor/ui/screens/teacher_dashboard_screen.dart';
+import 'package:etutor/ui/screens/student_side/student_dashboard_screen.dart';
+import 'package:etutor/ui/screens/auth/signup_screen.dart';
+import 'package:etutor/ui/screens/teacher_side/teacher_dashboard_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'package:etutor/constants/configs.dart';
 import 'package:etutor/core/services/database_service.dart';
 import 'package:etutor/ui/screens/home_screen.dart';
-import 'package:etutor/ui/screens/student_dashboard_screen.dart';
-import 'package:etutor/ui/screens/teacher_dashboard_screen.dart';
+import 'package:etutor/ui/screens/student_side/student_dashboard_screen.dart';
+import 'package:etutor/ui/screens/teacher_side/teacher_dashboard_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';

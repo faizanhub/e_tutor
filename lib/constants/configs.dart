@@ -28,6 +28,7 @@ abstract class AppConfigs {
 
   //PopUp Menu Buttons
   static const String showAllStudents = 'showAllStudents';
+  static const String showAllTeachers = 'showAllTeachers';
   static const String updateProfile = 'updateProfile';
   static const String logOut = 'logout';
 }

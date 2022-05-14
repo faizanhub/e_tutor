@@ -7,8 +7,8 @@ import 'package:etutor/core/utils/compare_two_strings.dart';
 import 'package:etutor/ui/custom_widgets/custom_drawer.dart';
 import 'package:etutor/ui/screens/chat_screen.dart';
 import 'package:etutor/ui/screens/home_screen.dart';
-import 'package:etutor/ui/screens/show_all_students_screen.dart';
-import 'package:etutor/ui/screens/teacher_update_profile_screen.dart';
+import 'package:etutor/ui/screens/student_side/show_all_students_screen.dart';
+import 'package:etutor/ui/screens/teacher_side/teacher_update_profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +29,8 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
   List<DocumentSnapshot> allStudentsChatsList = [];
 
   Map teacherData = {};
+
+  bool isLoading = false;
 
   Future<void> signOut() async {
     await _authService.signOut();
@@ -58,7 +60,15 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
     return allStudentsChatsList;
   }
 
-  handleListTilePress(int index, String chatTitle) async {
+  toggleIsLoading() {
+    setState(() {
+      isLoading = !isLoading;
+    });
+  }
+
+  handleListTilePress(int index, DocumentSnapshot studentSnapshot) async {
+    toggleIsLoading();
+
     String currentUser = _authService.currentUser!.uid;
 
     String chatRoomId =
@@ -72,8 +82,9 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
     //create chat room collection here, then go to next screen
     await _databaseService.createChatRoom(chatRoomId, chatRoomMap);
 
+    toggleIsLoading();
     Navigator.pushNamed(context, ChatScreen.routeName,
-        arguments: [chatRoomId, chatTitle]);
+        arguments: [chatRoomId, studentSnapshot]);
   }
 
   handleOnSelectedPopUpMenu(value) async {
@@ -137,62 +148,66 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
         ],
       ),
       drawer: CustomDrawer(),
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            FutureBuilder(
-              future: getFutureList(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  print('some error occurred');
-                }
-
-                if (snapshot.hasData && snapshot.data != null) {
-                  allStudentsChatsList =
-                      snapshot.data as List<DocumentSnapshot>;
-                  return Expanded(
-                    child: ListView.builder(
-                        itemCount: allStudentsChatsList.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            onTap: () => handleListTilePress(
-                              index,
-                              allStudentsChatsList[index]
-                                  .get(AppConfigs.fullName),
-                            ),
-                            leading: CircleAvatar(
-                              child: Text(
-                                allStudentsChatsList[index]
-                                    .get(AppConfigs.fullName)[0]
-                                    .toUpperCase(),
-                              ),
-                            ),
-                            title: Text(
-                              allStudentsChatsList[index]
-                                  .get(AppConfigs.fullName),
-                            ),
-                            subtitle: Text(
-                                '${allStudentsChatsList[index].get(AppConfigs.email)}'),
-                            trailing: Text(
-                                '${allStudentsChatsList[index].get(AppConfigs.city)}'),
-                          );
-                        }),
-                  );
-                }
-
-                if (snapshot.hasData && snapshot.data == null) {
-                  return Expanded(
-                      child: Center(child: Text(AppStrings.noChatsDoneYet)));
-                }
-
-                return Expanded(
-                    child: Center(child: Text(AppStrings.loadingData)));
-              },
+      body: isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
             )
-          ],
-        ),
-      ),
+          : Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FutureBuilder(
+                    future: getFutureList(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        print('some error occurred');
+                      }
+
+                      if (snapshot.hasData && snapshot.data != null) {
+                        allStudentsChatsList =
+                            snapshot.data as List<DocumentSnapshot>;
+                        return Expanded(
+                          child: ListView.builder(
+                              itemCount: allStudentsChatsList.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  onTap: () => handleListTilePress(
+                                    index,
+                                    allStudentsChatsList[index],
+                                  ),
+                                  leading: CircleAvatar(
+                                    child: Text(
+                                      allStudentsChatsList[index]
+                                          .get(AppConfigs.fullName)[0]
+                                          .toUpperCase(),
+                                    ),
+                                  ),
+                                  title: Text(
+                                    allStudentsChatsList[index]
+                                        .get(AppConfigs.fullName),
+                                  ),
+                                  subtitle: Text(
+                                      '${allStudentsChatsList[index].get(AppConfigs.email)}'),
+                                  trailing: Text(
+                                      '${allStudentsChatsList[index].get(AppConfigs.city)}'),
+                                );
+                              }),
+                        );
+                      }
+
+                      if (snapshot.hasData && snapshot.data == null) {
+                        return Expanded(
+                            child:
+                                Center(child: Text(AppStrings.noChatsDoneYet)));
+                      }
+
+                      return Expanded(
+                          child: Center(child: Text(AppStrings.loadingData)));
+                    },
+                  )
+                ],
+              ),
+            ),
     );
   }
 }

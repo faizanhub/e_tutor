@@ -2,7 +2,7 @@ import 'package:etutor/constants/strings/app_strings.dart';
 import 'package:etutor/constants/configs.dart';
 import 'package:etutor/constants/text_styles.dart';
 import 'package:etutor/ui/custom_widgets/custom_button.dart';
-import 'package:etutor/ui/screens/login_screen.dart';
+import 'package:etutor/ui/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {

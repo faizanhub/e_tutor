@@ -28,3 +28,18 @@ const messageBubbleTextStyleMe = TextStyle(
 const messageBubbleTextStyleOther = TextStyle(
   color: Colors.black,
 );
+
+const titleTextStyle = TextStyle(
+  color: Colors.black,
+  fontSize: 20,
+);
+
+TextStyle descTextStyle = TextStyle(
+  color: Colors.black.withOpacity(0.7),
+  fontSize: 15,
+);
+
+TextStyle cityTextStyle = TextStyle(
+  color: Colors.black.withOpacity(0.5),
+  fontSize: 13,
+);

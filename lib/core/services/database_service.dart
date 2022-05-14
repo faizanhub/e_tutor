@@ -17,6 +17,7 @@ abstract class DBBase {
   Stream<QuerySnapshot<Map<String, dynamic>>> getConversationMessages(
       String chatRoomId);
   Future<List> getAllStudentChats(User user);
+  Future<List> getAllTeacherChats(User user);
 
   Future<Map<String, dynamic>> getTeacherData(User user);
 
@@ -168,6 +169,54 @@ class DatabaseService extends DBBase {
       //student docs get done which chat is done already
       // studentChatNamesList => documents of chatRoom
       studentChatNamesList.forEach((doc) async {
+        List<dynamic> docs =
+            doc.get(AppConfigs.usersCollection) as List<dynamic>;
+
+        List chatUserUid =
+            docs.where((element) => element != user.uid).toList();
+
+        // print(chatUserUid);
+        // print('Chat user id ' + chatUserUid[0]);
+
+        DocumentSnapshot snapshot = await _firestore
+            .collection(AppConfigs.usersCollection)
+            .doc(chatUserUid[0])
+            .get();
+
+        // Map xyz = snapshot.data() as Map;
+        listOfChats.add(snapshot);
+      });
+
+      return listOfChats;
+    } catch (e) {
+      print(
+          'Error occurred while fetching data from firestore ${e.toString()}');
+      return listOfChats;
+    }
+  }
+
+  Future<List<DocumentSnapshot>> getAllTeacherChats(User user) async {
+    List<QueryDocumentSnapshot> teacherChatNamesList = [];
+
+    List<DocumentSnapshot> listOfChats = [];
+    try {
+      final snapshot =
+          await _firestore.collection(AppConfigs.chatRoomCollection).get();
+
+      var documents = snapshot.docs;
+
+      List<QueryDocumentSnapshot> filteredObject =
+          documents.where((doc) => doc.id.contains(user.uid)).toList();
+
+      // print('filetered list ${filteredObject.first.id}');
+
+      filteredObject.forEach((doc) {
+        teacherChatNamesList.add(doc);
+      });
+
+      //student docs get done which chat is done already
+      // studentChatNamesList => documents of chatRoom
+      teacherChatNamesList.forEach((doc) async {
         List<dynamic> docs =
             doc.get(AppConfigs.usersCollection) as List<dynamic>;
 
