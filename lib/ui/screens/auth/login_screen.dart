@@ -110,10 +110,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.loginAccount),
+        title: const Text(AppStrings.loginAccount),
       ),
       body: isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : Padding(
@@ -147,29 +147,29 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
 
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
 
                   ///Login Button
                   ElevatedButton(
                     onPressed: handleLoginButton,
                     style: ButtonStyle(
                       minimumSize: MaterialStateProperty.all(
-                        Size(double.infinity, 45),
+                        const Size(double.infinity, 45),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       AppStrings.loginAccount,
                       style: buttonTextStyle,
                     ),
                   ),
 
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
 
                   ///Already have an account
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         AppStrings.dontHaveAccount,
                         style: alreadyhaveAccountStyle,
                       ),

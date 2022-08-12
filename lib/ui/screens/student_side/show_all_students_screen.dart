@@ -67,10 +67,10 @@ class _ShowAllStudentsScreenState extends State<ShowAllStudentsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.allStudents),
+        title: const Text(AppStrings.allStudents),
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.logout_outlined,
               color: Colors.white,
             ),
@@ -80,7 +80,7 @@ class _ShowAllStudentsScreenState extends State<ShowAllStudentsScreen> {
       ),
       // drawer: CustomDrawer(),
       body: isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : Center(
@@ -117,8 +117,9 @@ class _ShowAllStudentsScreenState extends State<ShowAllStudentsScreen> {
                         );
                       }
 
-                      return Expanded(
-                          child: Center(child: Text(AppStrings.loadingData)));
+                      return const Expanded(
+                          child: const Center(
+                              child: const Text(AppStrings.loadingData)));
                     },
                   )
                 ],

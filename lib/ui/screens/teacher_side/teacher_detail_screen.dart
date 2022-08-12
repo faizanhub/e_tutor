@@ -12,8 +12,9 @@ class TeacherDetailScreen extends StatelessWidget {
   DocumentSnapshot teacherObject;
 
   TeacherDetailScreen({
+    Key? key,
     required this.teacherObject,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class TeacherDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.profile),
+        title: const Text(AppStrings.profile),
       ),
       body: Padding(
         padding: const EdgeInsets.all(14.0),
@@ -64,7 +65,7 @@ class TeacherDetailScreen extends StatelessWidget {
                       readOnly: true,
                       enabled: false,
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     CustomTextField(
                       hintText: AppStrings.email,
                       labelText: AppStrings.email,
@@ -74,7 +75,7 @@ class TeacherDetailScreen extends StatelessWidget {
                       readOnly: true,
                       enabled: false,
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     CustomTextField(
                       hintText: AppStrings.city,
                       labelText: AppStrings.city,
@@ -84,7 +85,7 @@ class TeacherDetailScreen extends StatelessWidget {
                       readOnly: true,
                       enabled: false,
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     CustomTextField(
                       hintText: AppStrings.address,
                       labelText: AppStrings.address,
@@ -94,7 +95,7 @@ class TeacherDetailScreen extends StatelessWidget {
                       readOnly: true,
                       enabled: false,
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     CustomTextField(
                       hintText: AppStrings.subjects,
                       labelText: AppStrings.subjects,
@@ -105,7 +106,7 @@ class TeacherDetailScreen extends StatelessWidget {
                       readOnly: true,
                       enabled: false,
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     CustomTextField(
                       hintText: AppStrings.experience,
                       labelText: AppStrings.experience,
@@ -117,7 +118,7 @@ class TeacherDetailScreen extends StatelessWidget {
                   ],
                 ),
 
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 ///Create Account Button
                 ElevatedButton(
@@ -126,10 +127,10 @@ class TeacherDetailScreen extends StatelessWidget {
                   },
                   style: ButtonStyle(
                     minimumSize: MaterialStateProperty.all(
-                      Size(double.infinity, 45),
+                      const Size(double.infinity, 45),
                     ),
                   ),
-                  child: Text(
+                  child: const Text(
                     AppStrings.back,
                     style: buttonTextStyle,
                   ),

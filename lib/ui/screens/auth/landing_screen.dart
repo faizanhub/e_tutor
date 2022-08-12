@@ -34,7 +34,7 @@ class LandingScreen extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.active) {
             User? user = snapshot.data;
             if (user == null) {
-              return HomeScreen();
+              return const HomeScreen();
             } else {
               return FutureBuilder(
                   future: getUserType(user),
@@ -44,10 +44,10 @@ class LandingScreen extends StatelessWidget {
                         return StudentDashboardScreen();
                       } else if (futureSnapshot.data ==
                           AppConfigs.teacherType) {
-                        return TeacherDashboardScreen();
+                        return const TeacherDashboardScreen();
                       }
                     }
-                    return Scaffold(
+                    return const Scaffold(
                         body: Center(child: CircularProgressIndicator()));
                   });
             }

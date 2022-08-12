@@ -17,7 +17,7 @@ class CustomButton extends StatelessWidget {
     return ElevatedButton(
       style: ButtonStyle(
         minimumSize: MaterialStateProperty.all(
-          Size(240, 45),
+          const Size(240, 45),
         ),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(

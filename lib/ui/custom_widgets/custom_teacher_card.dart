@@ -29,7 +29,7 @@ class CustomTeacherCard extends StatelessWidget {
           height: 100,
           child: Card(
             elevation: 3,
-            color: Color(0xfff2f2f8),
+            color: const Color(0xfff2f2f8),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -58,7 +58,6 @@ class CustomTeacherCard extends StatelessWidget {
                         width: 80,
                         child: ElevatedButton(
                           onPressed: onButtonPress,
-                          child: Text(AppStrings.chat),
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                                 Colors.purple.shade400),
@@ -68,6 +67,7 @@ class CustomTeacherCard extends StatelessWidget {
                               ),
                             ),
                           ),
+                          child: const Text(AppStrings.chat),
                         ),
                       ),
                     ],

@@ -21,8 +21,8 @@ class ShowAllTeachers extends StatefulWidget {
 }
 
 class _ShowAllTeachersState extends State<ShowAllTeachers> {
-  AuthService _authService = AuthService();
-  DatabaseService _databaseService = DatabaseService();
+  final AuthService _authService = AuthService();
+  final DatabaseService _databaseService = DatabaseService();
 
   List<QueryDocumentSnapshot> teacherNames = [];
 
@@ -85,23 +85,23 @@ class _ShowAllTeachersState extends State<ShowAllTeachers> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.studentDashBoard),
+        title: const Text(AppStrings.studentDashBoard),
         actions: [
           PopupMenuButton<String>(
             onSelected: handleOnSelectedPopUpMenu,
             itemBuilder: (context) => [
-              PopupMenuItem(
-                child: Text(AppStrings.showAllTeachers),
+              const PopupMenuItem(
                 value: AppConfigs.showAllStudents,
+                child: Text(AppStrings.showAllTeachers),
               ),
               // PopupMenuItem(
               //   child: Text(AppStrings.updateProfile),
               //   value: AppConfigs.updateProfile,
               // ),
-              PopupMenuDivider(),
-              PopupMenuItem(
-                child: Text(AppStrings.logout),
+              const PopupMenuDivider(),
+              const PopupMenuItem(
                 value: AppConfigs.logOut,
+                child: Text(AppStrings.logout),
               ),
             ],
           ),
@@ -109,7 +109,7 @@ class _ShowAllTeachersState extends State<ShowAllTeachers> {
       ),
       // drawer: CustomDrawer(),
       body: isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : Center(
@@ -118,7 +118,7 @@ class _ShowAllTeachersState extends State<ShowAllTeachers> {
                 children: [
                   TextButton(
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       'All Teachers',
                       style: TextStyle(
                           fontSize: 22,
@@ -156,7 +156,7 @@ class _ShowAllTeachersState extends State<ShowAllTeachers> {
                         );
                       }
 
-                      return Expanded(
+                      return const Expanded(
                           child: Center(child: Text('Loading Data...')));
                     },
                   )

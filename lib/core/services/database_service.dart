@@ -27,6 +27,7 @@ abstract class DBBase {
 class DatabaseService extends DBBase {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  @override
   Future<void> saveAccountData(Person person, String uid) async {
     try {
       await _firestore
@@ -39,6 +40,7 @@ class DatabaseService extends DBBase {
     }
   }
 
+  @override
   Future<String> getUserType(User user) async {
     final DocumentSnapshot snapshot = await _firestore
         .collection(AppConfigs.usersCollection)
@@ -50,6 +52,7 @@ class DatabaseService extends DBBase {
     return data[AppConfigs.userType];
   }
 
+  @override
   Future<String> getUserName(User user) async {
     final DocumentSnapshot snapshot = await _firestore
         .collection(AppConfigs.usersCollection)
@@ -61,6 +64,7 @@ class DatabaseService extends DBBase {
     return data[AppConfigs.fullName];
   }
 
+  @override
   Future<List> getTeacherNames() async {
     List<QueryDocumentSnapshot> teacherNames = [];
     try {
@@ -74,9 +78,9 @@ class DatabaseService extends DBBase {
               (doc) => doc.get(AppConfigs.userType) == AppConfigs.teacherType)
           .toList();
 
-      filteredObject.forEach((element) {
+      for (var element in filteredObject) {
         teacherNames.add(element);
-      });
+      }
 
       return teacherNames;
     } catch (e) {
@@ -86,6 +90,7 @@ class DatabaseService extends DBBase {
     }
   }
 
+  @override
   Future<List> getStudentNames() async {
     List<QueryDocumentSnapshot> studentNames = [];
     try {
@@ -99,9 +104,9 @@ class DatabaseService extends DBBase {
               (doc) => doc.get(AppConfigs.userType) == AppConfigs.studentType)
           .toList();
 
-      filteredObject.forEach((element) {
+      for (var element in filteredObject) {
         studentNames.add(element);
-      });
+      }
 
       return studentNames;
     } catch (e) {
@@ -113,6 +118,7 @@ class DatabaseService extends DBBase {
 
   //Update & Delete is pending
 
+  @override
   Future<void> createChatRoom(String chatRoomId, chatRoomMap) async {
     try {
       await _firestore
@@ -124,6 +130,7 @@ class DatabaseService extends DBBase {
     }
   }
 
+  @override
   Future<void> addConversationMessages(String chatRoomId, messageMap) async {
     try {
       await _firestore
@@ -136,6 +143,7 @@ class DatabaseService extends DBBase {
     }
   }
 
+  @override
   Stream<QuerySnapshot<Map<String, dynamic>>> getConversationMessages(
       String chatRoomId) {
     return _firestore
@@ -195,6 +203,7 @@ class DatabaseService extends DBBase {
     }
   }
 
+  @override
   Future<List<DocumentSnapshot>> getAllTeacherChats(User user) async {
     List<QueryDocumentSnapshot> teacherChatNamesList = [];
 
@@ -262,6 +271,7 @@ class DatabaseService extends DBBase {
     }
   }
 
+  @override
   Future<void> updateTeacherData(UpdateTeacher teacher, String uid) async {
     try {
       await _firestore

@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 class HomeScreen extends StatelessWidget {
   static const String routeName = '/home';
 
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     void handleTeacherButton() {
@@ -36,12 +38,12 @@ class HomeScreen extends StatelessWidget {
             Column(
               children: [
                 ///text
-                Text(
+                const Text(
                   AppStrings.user_type,
                   style: userTypeTextStyle,
                 ),
 
-                SizedBox(height: 45),
+                const SizedBox(height: 45),
 
                 ///Teacher Button
                 CustomButton(
@@ -49,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                   title: AppStrings.teacher,
                 ),
 
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
 
                 ///Student Button
                 CustomButton(
@@ -59,7 +61,7 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
 
-            SizedBox(),
+            const SizedBox(),
           ],
         ),
       ),
