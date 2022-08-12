@@ -11,7 +11,7 @@ class CustomDrawer extends StatelessWidget {
         child: Column(children: [
           Container(
             child: Padding(
-              padding: EdgeInsets.only(top: 50.0),
+              padding: const EdgeInsets.only(top: 50.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,7 +48,7 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20.0,
           ),
           //Now let's Add the button for the Menu
@@ -58,33 +58,33 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {
               // Navigator.pop(context);
             },
-            leading: Icon(
+            leading: const Icon(
               Icons.settings,
               // color: Colors.white,
             ),
-            title: Text(
+            title: const Text(
               "Settings",
             ),
           ),
 
           ListTile(
             onTap: () {},
-            leading: Icon(
+            leading: const Icon(
               Icons.info,
               // color: Colors.white,
             ),
-            title: Text(
+            title: const Text(
               "About Us",
             ),
           ),
 
           ListTile(
             onTap: () {},
-            leading: Icon(
+            leading: const Icon(
               Icons.help,
               // color: Colors.white,
             ),
-            title: Text(
+            title: const Text(
               "Help",
             ),
           ),

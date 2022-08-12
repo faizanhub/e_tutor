@@ -15,11 +15,11 @@ class UpdateTeacher {
 
   Map<String, dynamic> toJson() {
     return {
-      "fullName": this.fullName,
-      "city": this.city,
-      "address": this.address,
-      "subjects": this.subjects,
-      "experience": this.experience,
+      "fullName": fullName,
+      "city": city,
+      "address": address,
+      "subjects": subjects,
+      "experience": experience,
     };
   }
 }

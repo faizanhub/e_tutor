@@ -27,7 +27,8 @@ class CustomRoutes {
       case StudentDashboardScreen.routeName:
         return MaterialPageRoute(builder: (_) => StudentDashboardScreen());
       case TeacherDashboardScreen.routeName:
-        return MaterialPageRoute(builder: (_) => TeacherDashboardScreen());
+        return MaterialPageRoute(
+            builder: (_) => const TeacherDashboardScreen());
       case LandingScreen.routeName:
         return MaterialPageRoute(builder: (_) => LandingScreen());
 
@@ -43,7 +44,7 @@ class CustomRoutes {
         return MaterialPageRoute(builder: (_) => ShowAllStudentsScreen());
 
       case ShowAllTeachers.routeName:
-        return MaterialPageRoute(builder: (_) => ShowAllTeachers());
+        return MaterialPageRoute(builder: (_) => const ShowAllTeachers());
 
       case TeacherUpdateProfileScreen.routeName:
         final args = settings.arguments as Map<String, dynamic>;

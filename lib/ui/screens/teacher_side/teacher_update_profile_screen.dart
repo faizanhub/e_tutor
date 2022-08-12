@@ -16,7 +16,7 @@ class TeacherUpdateProfileScreen extends StatefulWidget {
 
   final Map teacherData;
 
-  TeacherUpdateProfileScreen({required this.teacherData});
+  const TeacherUpdateProfileScreen({required this.teacherData});
 
   @override
   State<TeacherUpdateProfileScreen> createState() =>
@@ -28,7 +28,7 @@ class _TeacherUpdateProfileScreenState
   final DatabaseService _databaseService = DatabaseService();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  UpdateTeacher _updateTeacher = UpdateTeacher();
+  final UpdateTeacher _updateTeacher = UpdateTeacher();
 
   bool isLoading = false;
 
@@ -78,11 +78,11 @@ class _TeacherUpdateProfileScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.updateProfile),
+        title: const Text(AppStrings.updateProfile),
       ),
       body: isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
+          ? const Center(
+              child: const CircularProgressIndicator(),
             )
           : Padding(
               padding: const EdgeInsets.all(14.0),
@@ -103,7 +103,7 @@ class _TeacherUpdateProfileScreenState
                               controller: fullNameC,
                               validator: validateFullNameField,
                             ),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             CustomTextField(
                               hintText: AppStrings.city,
                               labelText: AppStrings.city,
@@ -111,7 +111,7 @@ class _TeacherUpdateProfileScreenState
                               controller: cityC,
                               validator: validateCityField,
                             ),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             CustomTextField(
                               hintText: AppStrings.address,
                               labelText: AppStrings.address,
@@ -119,7 +119,7 @@ class _TeacherUpdateProfileScreenState
                               controller: addressC,
                               validator: validateCityField,
                             ),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             CustomTextField(
                               hintText: AppStrings.subjects,
                               labelText: AppStrings.subjects,
@@ -128,7 +128,7 @@ class _TeacherUpdateProfileScreenState
                               prefixIcon: Icons.subject_outlined,
                               controller: subjectsC,
                             ),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             CustomTextField(
                               hintText: AppStrings.experience,
                               labelText: AppStrings.experience,
@@ -139,17 +139,17 @@ class _TeacherUpdateProfileScreenState
                         ),
                       ),
 
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
 
                       ///Create Account Button
                       ElevatedButton(
                         onPressed: handleUpdateProfile,
                         style: ButtonStyle(
                           minimumSize: MaterialStateProperty.all(
-                            Size(double.infinity, 45),
+                            const Size(double.infinity, 45),
                           ),
                         ),
-                        child: Text(
+                        child: const Text(
                           AppStrings.update,
                           style: buttonTextStyle,
                         ),

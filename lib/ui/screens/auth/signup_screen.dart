@@ -85,10 +85,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.createAccount),
+        title: const Text(AppStrings.createAccount),
       ),
       body: isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : Padding(
@@ -155,29 +155,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
 
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
 
                       ///Create Account Button
                       ElevatedButton(
                         onPressed: handleCreateAccountBtn,
                         style: ButtonStyle(
                           minimumSize: MaterialStateProperty.all(
-                            Size(double.infinity, 45),
+                            const Size(double.infinity, 45),
                           ),
                         ),
-                        child: Text(
+                        child: const Text(
                           AppStrings.createAccount,
                           style: buttonTextStyle,
                         ),
                       ),
 
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
 
                       ///Already have an account
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             AppStrings.alreadyHaveAccount,
                             style: alreadyhaveAccountStyle,
                           ),

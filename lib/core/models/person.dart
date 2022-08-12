@@ -17,11 +17,11 @@ class Person {
 
   Map<String, dynamic> toJson() {
     return {
-      "fullName": this.fullName,
-      "email": this.email,
-      "city": this.city,
-      "address": this.address,
-      "userType": this.userType,
+      "fullName": fullName,
+      "email": email,
+      "city": city,
+      "address": address,
+      "userType": userType,
     };
   }
 }

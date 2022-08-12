@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 
 class MessagesStream extends StatelessWidget {
   final String chatRoomId;
-  DatabaseService _databaseService = DatabaseService();
+  final DatabaseService _databaseService = DatabaseService();
 
   MessagesStream({
     required this.chatRoomId,
@@ -29,7 +29,7 @@ class MessagesStream extends StatelessWidget {
           return Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 CircularProgressIndicator(),
               ],
             ),
@@ -38,7 +38,7 @@ class MessagesStream extends StatelessWidget {
           return Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 Text(AppStrings.noMessages),
               ],
             ),

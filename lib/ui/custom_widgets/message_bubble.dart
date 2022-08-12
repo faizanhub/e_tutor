@@ -48,12 +48,12 @@ class MessageBubble extends StatelessWidget {
                         ],
                 ),
                 borderRadius: isSendByMe
-                    ? BorderRadius.only(
+                    ? const BorderRadius.only(
                         topLeft: Radius.circular(23),
                         bottomRight: Radius.circular(23),
                         bottomLeft: Radius.circular(23),
                       )
-                    : BorderRadius.only(
+                    : const BorderRadius.only(
                         bottomLeft: Radius.circular(23),
                         topRight: Radius.circular(23),
                         bottomRight: Radius.circular(23),
@@ -86,7 +86,7 @@ class MessageBubble extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 0),
+          const SizedBox(height: 0),
           Container(
             // alignment: Alignment.bottomRight,
             padding: const EdgeInsets.symmetric(horizontal: 8),

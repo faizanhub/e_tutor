@@ -17,18 +17,19 @@ class ChatScreen extends StatefulWidget {
   final String chatRoomId;
   final DocumentSnapshot snapshot;
 
-  ChatScreen({
+  const ChatScreen({
+    Key? key,
     required this.chatRoomId,
     required this.snapshot,
-  });
+  }) : super(key: key);
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  AuthService _authService = AuthService();
-  DatabaseService _databaseService = DatabaseService();
+  final AuthService _authService = AuthService();
+  final DatabaseService _databaseService = DatabaseService();
 
   TextEditingController messageC = TextEditingController();
 

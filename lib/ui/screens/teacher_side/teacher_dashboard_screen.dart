@@ -55,7 +55,7 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
     allStudentsChatsList =
         await _databaseService.getAllStudentChats(_authService.currentUser!);
 
-    await Future.delayed(Duration(milliseconds: 900));
+    await Future.delayed(const Duration(milliseconds: 900));
 
     return allStudentsChatsList;
   }
@@ -123,33 +123,33 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text(
+        title: const Text(
           AppStrings.teacherDashBoard,
         ),
         actions: [
           PopupMenuButton<String>(
             onSelected: handleOnSelectedPopUpMenu,
             itemBuilder: (context) => [
-              PopupMenuItem(
-                child: Text(AppStrings.showAllStudents),
+              const PopupMenuItem(
                 value: AppConfigs.showAllStudents,
+                child: Text(AppStrings.showAllStudents),
               ),
-              PopupMenuItem(
-                child: Text(AppStrings.updateProfile),
+              const PopupMenuItem(
                 value: AppConfigs.updateProfile,
+                child: Text(AppStrings.updateProfile),
               ),
-              PopupMenuDivider(),
-              PopupMenuItem(
-                child: Text(AppStrings.logout),
+              const PopupMenuDivider(),
+              const PopupMenuItem(
                 value: AppConfigs.logOut,
+                child: Text(AppStrings.logout),
               ),
             ],
           ),
         ],
       ),
-      drawer: CustomDrawer(),
+      drawer: const CustomDrawer(),
       body: isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : Center(
@@ -196,12 +196,12 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
                       }
 
                       if (snapshot.hasData && snapshot.data == null) {
-                        return Expanded(
+                        return const Expanded(
                             child:
                                 Center(child: Text(AppStrings.noChatsDoneYet)));
                       }
 
-                      return Expanded(
+                      return const Expanded(
                           child: Center(child: Text(AppStrings.loadingData)));
                     },
                   )
